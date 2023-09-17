@@ -1,0 +1,17 @@
+@import "src/styles/variables.scss";
+
+.footer-bar {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  color: white;
+}
+
+@media only screen and (max-width: 500px) {
+  .footer-bar {
+    height: 40px;
+  }
+}
