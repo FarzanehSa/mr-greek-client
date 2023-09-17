@@ -12,16 +12,16 @@ import './Navbar.scss';
 const Navbar = ({setUser}) => {
 
   const {storeInfo } = useContext(GeneralContext);
-  const [sidebar, setSidebar] = useState(false);
-  const [mobile, setMobile] = useState(false);
+  const [showBar, setShowBar] = useState(false);
+  const [showSideNav, setShowSideNav] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 601) {
-        setMobile(true);
+        setShowSideNav(true);
       } else {
-        setMobile(false);
-        setSidebar(false);
+        setShowBar(false);
+        setShowSideNav(false);
       }
     }
     
@@ -35,61 +35,49 @@ const Navbar = ({setUser}) => {
 
   return (
 
-    <div className={!mobile && sidebar ? "n-wrapper-hidden" : "n-wrapper"}>
+    <div className="n-wrapper">
       <div className="n-row">
         <div className='logo-name'>
           <img className='logo-image' src={storeInfo.imgUrl} alt="logo" />
           <div className='logo-name'>
             <NavLink className="navlink" to="/">{storeInfo.storeName}</NavLink>
           </div>
-          </div>
+        </div>
         <div className="n-right">
-          {mobile ?
+          {showSideNav ?
           <div>
-            {sidebar ? <CloseIcon onClick={() => setSidebar(!sidebar)}/> : <MenuIcon onClick={() => setSidebar(!sidebar)}/>}
+            {showBar ? <CloseIcon onClick={() => setShowBar(!showBar)}/> : <MenuIcon onClick={() => setShowBar(!showBar)}/>}
           </div>
           :
           <ul style={{listStyleType: 'none'}}>
             <Link activeClass="active" to="Home" spy={true} smooth={true} offset={-150}>
               <li>Home</li>
             </Link>
-          <Link activeClass="active" to="About" spy={true} smooth={true} offset={-60}>
-            <li>About</li>
+            <Link activeClass="active" to="Projects" spy={true} smooth={true} offset={-60}>
+              <li>Menu</li>
+            </Link>
+            <Link activeClass="active" to="Contact" spy={true} smooth={true} offset={-60}>
+              <li>Contact Us</li>
+            </Link>
+          </ul>
+          }
+        </div>
+      </div>
+      {showSideNav &&   
+      <div className={showBar ? "n-sidebar active" : "n-sidebar"} onClick={() => {setShowBar(false)}}>
+        <ul style={{listStyleType: 'none'}}>
+          <Link activeClass="active" to="Home" spy={true} smooth={true} onClick={() => {setShowBar(false)}} offset={-150}>
+            <li>Home</li>
           </Link>
-          <Link activeClass="active" to="Skills" spy={true} smooth={true} offset={-60}>
-            <li>Skills</li>
+          <Link activeClass="active" to="Projects" spy={true} smooth={true} onClick={() => {setShowBar(false)}} offset={-80}>
+            <li>Menu</li>
           </Link>
-          <Link activeClass="active" to="Projects" spy={true} smooth={true} offset={-60}>
-            <li>Projects</li>
-          </Link>
-          <Link activeClass="active" to="Contact" spy={true} smooth={true} offset={-60}>
-            <li>Contact</li>
+          <Link activeClass="active" to="Contact" spy={true} smooth={true} onClick={() => {setShowBar(false)}} offset={-80}>
+            <li>Contact Us</li>
           </Link>
         </ul>
-        }
-      </div>
+      </div>}
     </div>
-    {mobile &&   
-    <div className={sidebar ? "n-sidebar active" : "n-sidebar"} onClick={() => {setSidebar(false)}}>
-      <ul style={{listStyleType: 'none'}}>
-        <Link activeClass="active" to="Home" spy={true} smooth={true} onClick={() => {setSidebar(false)}} offset={-150}>
-          <li>Home</li>
-        </Link>
-        <Link activeClass="active" to="About" spy={true} smooth={true} onClick={() => {setSidebar(false)}} offset={-80}>
-          <li>About</li>
-        </Link>
-        <Link activeClass="active" to="Skills" spy={true} smooth={true} onClick={() => {setSidebar(false)}} offset={-80}>
-          <li>Skills</li>
-        </Link>
-        <Link activeClass="active" to="Projects" spy={true} smooth={true} onClick={() => {setSidebar(false)}} offset={-80}>
-          <li>Projects</li>
-        </Link>
-        <Link activeClass="active" to="Contact" spy={true} smooth={true} onClick={() => {setSidebar(false)}} offset={-80}>
-          <li>Contact</li>
-        </Link>
-      </ul>
-    </div>}
-  </div>
   )
 }
 
