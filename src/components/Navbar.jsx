@@ -37,11 +37,11 @@ const Navbar = ({setUser}) => {
 
     <div className="n-wrapper">
       <div className="n-row">
-        <div className='logo-name'>
-          <img className='logo-image' src={storeInfo.imgUrl} alt="logo" />
-          <div className='logo-name'>
-            <NavLink className="navlink" to="/">{storeInfo.storeName}</NavLink>
-          </div>
+        <div className='logo-name-img'>
+          {/* <img className='logo-image' src={storeInfo.imgUrl} alt="logo" /> */}
+          <span className='logo-name'>
+            Mr.Greek Donair
+          </span>
         </div>
         <div className="n-right">
           {showSideNav ?
@@ -50,15 +50,15 @@ const Navbar = ({setUser}) => {
           </div>
           :
           <ul style={{listStyleType: 'none'}}>
-            <Link activeClass="active" to="Home" spy={true} smooth={true} offset={-150}>
-              <li>Home</li>
-            </Link>
-            <Link activeClass="active" to="Projects" spy={true} smooth={true} offset={-60}>
-              <li>Menu</li>
-            </Link>
-            <Link activeClass="active" to="Contact" spy={true} smooth={true} offset={-60}>
-              <li>Contact Us</li>
-            </Link>
+            <li>
+              <button className='nav-buttons'><NavLink tabIndex="-1" className="navlink" to="/">Home</NavLink></button>
+            </li>
+            <li>
+              <button className='nav-buttons'><NavLink tabIndex="-1" className="navlink" to="/menu">Menu</NavLink></button>
+            </li>
+            <li>
+              <button className='nav-buttons'><NavLink tabIndex="-1" className="navlink" to="/contact">Contact Us</NavLink></button>
+            </li>
           </ul>
           }
         </div>
@@ -66,15 +66,15 @@ const Navbar = ({setUser}) => {
       {showSideNav &&   
       <div className={showBar ? "n-sidebar active" : "n-sidebar"} onClick={() => {setShowBar(false)}}>
         <ul style={{listStyleType: 'none'}}>
-          <Link activeClass="active" to="Home" spy={true} smooth={true} onClick={() => {setShowBar(false)}} offset={-150}>
-            <li>Home</li>
-          </Link>
-          <Link activeClass="active" to="Projects" spy={true} smooth={true} onClick={() => {setShowBar(false)}} offset={-80}>
-            <li>Menu</li>
-          </Link>
-          <Link activeClass="active" to="Contact" spy={true} smooth={true} onClick={() => {setShowBar(false)}} offset={-80}>
-            <li>Contact Us</li>
-          </Link>
+          <li>
+            <button className='nav-buttons' onClick={() => {setShowBar(false)}}><NavLink tabIndex="-1" className="navlink" to="/">Home</NavLink></button>
+          </li>
+          <li>
+            <button className='nav-buttons' onClick={() => {setShowBar(false)}}><NavLink tabIndex="-1" className="navlink" to="/menu">Menu</NavLink></button>
+          </li>
+          <li>
+            <button className='nav-buttons' onClick={() => {setShowBar(false)}}><NavLink tabIndex="-1" className="navlink" to="/contact">Contact Us</NavLink></button>
+           </li>
         </ul>
       </div>}
     </div>

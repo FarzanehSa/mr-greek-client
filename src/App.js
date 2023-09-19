@@ -14,7 +14,7 @@ function App() {
   const [title, setTitle] = useState("");
   const storeInfo = {
     imgUrl:'../greek-logo.png',
-    storeName: 'Mr.Greek'
+    storeName: 'Mr.Greek Donair'
   };
 
   const matchDashboard = useMatch('/dashboard/*');
