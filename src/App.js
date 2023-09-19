@@ -14,7 +14,9 @@ function App() {
   const [title, setTitle] = useState("");
   const storeInfo = {
     imgUrl:'../greek-logo.png',
-    storeName: 'Mr.Greek Donair'
+    storeName: 'Mr.Greek Donair',
+    address: '2285 Commercial Dr, Vancouver, BC V5N 4B6',
+    tel: '(604) 620-6682'
   };
 
   const matchDashboard = useMatch('/dashboard/*');
@@ -49,7 +51,7 @@ function App() {
         {/* {matchDashboard && (!user.id || user.access !== 0) && <NavbarAdmin zIndex={-1}/>} */}
         {/* {matchDashboard && user.id && !user.access && <NavbarAdmin zIndex={1100}/>} */}
         {!matchDashboard && <Navbar setUser={setUser}/>}
-        <Footer />
+        <Footer storeInfo={storeInfo}/>
       </GeneralContext.Provider>
     </div>
   );

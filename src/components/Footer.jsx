@@ -2,11 +2,18 @@ import React from "react";
 
 import "./Footer.scss";
 
-function Footer() {
+function Footer({storeInfo}) {
 
   return (
     <div className="footer-bar">
-      <span>
+      <img src={storeInfo.imgUrl} alt='logo' className="logo"/>
+      <span className="address">
+        {storeInfo.address}
+      </span>
+      <span className="tel">
+        {storeInfo.tel}
+      </span>
+      <span className="copywrite">
         ©2023 Mr.Greek Donair | All rights Reserved.
       </span>
     </div>

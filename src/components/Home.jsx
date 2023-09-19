@@ -1,111 +1,67 @@
 import React, { useState, useEffect } from "react";
 import "./Home.scss";
 
+import ImageSlider from "./side/ImageSlider";
+
 const Home = () => {
 
-  const [photo1, setPhoto1] = useState(1);
-  const [photo2, setPhoto2] = useState(10);
-  const [photo3, setPhoto3] = useState(100);
+
+  const imageSlides = [
+    {
+      src:"../donair-background-1.jpg",
+      alt:"mainImage"
+    },
+    {
+      src:"../donair-background-2.jpg",
+      alt:"mainImage"
+    },
+    {
+      src:"../donair-background-3.jpg",
+      alt:"mainImage"
+    },
+    {
+      src:"../donair-background-4.jpg",
+      alt:"mainImage"
+    },
+  ]
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, []);
   
-  useEffect(() => {
-    const rotatePhoto = setTimeout(() => {
-      const sum = photo1 + photo2 + photo3;
-      switch (sum) {
-        case 111:
-          setPhoto1(2);
-          break;
-        case 112:
-          setPhoto2(20);
-          break;
-        case 122:
-          setPhoto3(200);
-          break;
-        case 222:
-          setPhoto1(1);
-          break;
-        case 221:
-          setPhoto2(10);
-          break;
-        default:
-          setPhoto3(100);
-          break;
-      }
-    },5000);
-    
-    return (() => clearTimeout(rotatePhoto))
-  },[photo1, photo2, photo3])
 
   return (
-    <div style={{lineHeight:'1.6'}} className="homepage-layout">
-      <div className="image-container">
-        <img className="main-image" src={`../homeBackground-${photo1}.jpg`} alt="mainImage" />
-        <img className="main-image" src={`../homeBackground-${photo2}.jpg`} alt="mainImage" />
-        <img className="main-image" src={`../homeBackground-${photo3}.jpg`} alt="mainImage" />
+    <div className="homepage-layout">
+      <div className="imageSlider-container">
+        <ImageSlider imageSlides={imageSlides}/>
       </div>
+
       <div className="text-under-image">
-        <p className="data-title">
-          Our Eaton Center location is open for Curbside Pickup, in-store shopping and delivery.
+        <p className="star-ad">
+          <span>Add some excitement to your mealtime with our tasty donairs</span>
+          <span>a mouthwatering treat that's hard to resist!</span>
         </p>
-        <p className="paragraph-data">
-          The Shoebox is offering <strong>Free Shipping</strong> on all
-          purchases. Please note the possibility of shipping delays due to
-          unforeseen circumstances.
-        </p>
-        <p className="paragraph-data">
-          Thank you for your patience and support. Stay safe and comfortable.
-        </p>
-      </div>
-      <br />
-      <div className="map-and-info">
-        <div className="location-and-hours">
-          <span className="location">
-            <strong >
-              Location:
-            </strong>
-          </span>
-          <div className="l-h-info">
-            <span>Eaton Center</span>
-            <span>220 Yonge St, Toronto, ON M5B 2H1</span>
-            <br />
-            <br />
+        <div className="delivery">
+          <div className="delivery-imgs">
+            <img src='../skip-logo.png' alt="skip" className="delivery-img"/>
+            <img src='../uber-logo.png' alt="uber" className="delivery-img"/>
+            <img src='../doordash-logo.png' alt="doordash" className="delivery-img"/>
           </div>
-        </div>
-        <div className="location-and-hours">
-          <span className="hours">
-            <strong >
-              Shop Hours:
-            </strong>
+          <span className="delivery-txt">
+            Order Online
           </span>
-          <div className="l-h-info">
-            <span>Monday - Friday: 10 - 5</span>
-            <span>Saturday: 10 - 6</span>
-            <span>Sunday: 10 - 4</span>
-          </div>
         </div>
-      </div>
-      <br />
-      <div className="complimentary-info">
-        <p className="data-title">Complimentary Boot Care Service:</p>
-        <p className="paragraph-data">
-          Complimentary boot cleaning, polishing and conditioning service is
-          available at our locations for our customers. (even if you purchased
-          your boots from another retailer!).{" "}
-        </p>
-        <p className="paragraph-data">
-          Please note the cleaning portion of this service applies to the upper
-          of the boots only and not the sole. Please ensure the soles of your
-          dropped-off boots are free of mud, debris and other organic material.
-        </p>
-        <p className="paragraph-data">
-          This service is now a drop-off service with a 24 to 72-hour turnaround
-          to allow adequate time for us to take care of your boots. Please limit
-          boots to 3 pairs per customer at a time. We encourage you to call the
-          store before you drop by to double-check they have capacity and to
-          avoid disappointment.
+        <p className="bio">
+          <span className="bio-title">About US</span>
+          <span className="bio-text">
+            We opened our doors in 2020 on Commercial Drive in Vancouver. 
+          </span>
+          <span className="bio-text">
+            Our specialty? Mouthwatering donairs that bring a taste of Greece to your plate.
+          </span>
+          <span className="bio-text">
+            Join us for a flavorful experience that's perfect for locals and visitors alike.
+          </span>
         </p>
       </div>
     </div>
