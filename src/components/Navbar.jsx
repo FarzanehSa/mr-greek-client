@@ -11,13 +11,13 @@ import './Navbar.scss';
 
 const Navbar = ({setUser}) => {
 
-  const {storeInfo } = useContext(GeneralContext);
+  const {storeInfo, user } = useContext(GeneralContext);
   const [showBar, setShowBar] = useState(false);
   const [showSideNav, setShowSideNav] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 601) {
+      if (window.innerWidth < 801) {
         setShowSideNav(true);
       } else {
         setShowBar(false);
@@ -40,7 +40,7 @@ const Navbar = ({setUser}) => {
         <div className='logo-name-img'>
           {/* <img className='logo-image' src={storeInfo.imgUrl} alt="logo" /> */}
           <span className='logo-name'>
-            Mr.Greek Donair
+            {storeInfo.storeName}
           </span>
         </div>
         <div className="n-right">
@@ -59,6 +59,11 @@ const Navbar = ({setUser}) => {
             <li>
               <button className='nav-buttons'><NavLink tabIndex="-1" className="navlink" to="/contact">Contact Us</NavLink></button>
             </li>
+            {user.id && 
+              <li>
+                <button className='nav-buttons' onClick={() => setUser({})}>Logout</button>
+              </li>
+            }
           </ul>
           }
         </div>
@@ -75,6 +80,11 @@ const Navbar = ({setUser}) => {
           <li>
             <button className='nav-buttons' onClick={() => {setShowBar(false)}}><NavLink tabIndex="-1" className="navlink" to="/contact">Contact Us</NavLink></button>
            </li>
+           {user.id && 
+              <li>
+                <button className='nav-buttons' onClick={() => setUser({})}>Logout</button>
+              </li>
+            }
         </ul>
       </div>}
     </div>
