@@ -6,7 +6,6 @@ function ImageSlider({imageSlides}) {
 
   const [slide, setSlide] = useState(0);
 
-  console.log(slide);
   useEffect(() => {
     const rotatePhoto = setTimeout(() => {
       const num = imageSlides.length - 1;
