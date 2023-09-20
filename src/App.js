@@ -8,14 +8,19 @@ import GeneralContext from './contexts/GeneralContext';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import AdminLogin from './components/dashboard/AdminLogin'
-import NavbarAdmin from './components/dashboard/NavbarAdmin'
+import AdminLogin from './components/dashboard/AdminLogin';
+import NavbarAdmin from './components/dashboard/NavbarAdmin';
+import Dashboard from './components/dashboard/Dashboard';
+import MenuGroupDashboard from './components/dashboard/MenuGroupDashboard';
 
 function App() {
 
   const [user, setUser] = useState({});
   const [adminLogin, setAdminLogin] = useState(false);
   const [title, setTitle] = useState("");
+  const [menuGroups, setMenuGroups] = useState([]);
+  const [menuItems, setmenuItems] = useState([]);
+
   const storeInfo = {
     imgUrl:'../greek-logo.png',
     storeName: 'Mr.Greek Donair',
@@ -77,10 +82,14 @@ function App() {
 
   return (
     <div className="App">
-      <GeneralContext.Provider value={{ user, storeInfo, url }}>
+      <GeneralContext.Provider value={{ user, storeInfo, url, menuGroups }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/*" element={<Home />} />
+
+          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/dashboard/menu-group' element={<MenuGroupDashboard setMenuGroups={setMenuGroups}/>} />
+          {/* <Route path='/dashboard/service' element={<ServiceDashboard setServices={setServices}/>}/> */}
         </Routes>
         <Modal
           isOpen={adminLogin}
@@ -92,7 +101,7 @@ function App() {
           {adminLogin && <AdminLogin onClose={closeModal} setUser={setUser}/>}
         </Modal>
         {/* {matchDashboard && (!user.id || user.access !== 0) && <NavbarAdmin zIndex={-1}/>} */}
-        {matchDashboard && user.id  && <NavbarAdmin zIndex={1100}/>}
+        {matchDashboard && user.id  && <NavbarAdmin zIndex={1100} setUser={setUser}/>}
         {!matchDashboard && <Navbar setUser={setUser}/>}
         <Footer storeInfo={storeInfo}/>
       </GeneralContext.Provider>
