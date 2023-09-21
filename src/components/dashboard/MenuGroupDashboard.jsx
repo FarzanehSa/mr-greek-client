@@ -81,7 +81,7 @@ const MenuGroupDashboard = ({setMenuGroups}) => {
 
   const handleChangeAdd = (event) => {
     const value = event.target.value;
-    setAddGroupForm({serviceGroup: value})
+    setAddGroupForm({menuGroup: value})
   }
 
   const handleChangeEdit = (event) => {
