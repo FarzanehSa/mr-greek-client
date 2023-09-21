@@ -1,0 +1,50 @@
+.confirm-delete-appointment-modal {
+  margin: 0.5em;
+  font-size: 1.1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.5em;
+  }
+
+  .date-time {
+    color: red;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1em;
+
+    .btn-cancel, .btn-confirm {
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      margin-right: 0.3em;
+      margin-left: 0.3em;
+      padding: 0.3em 2em;
+      cursor: pointer;
+  
+      background-color: LightCoral;
+      color: black;
+
+      &:hover {
+        background-color: #eb6663;
+        color: white;
+      }
+
+      &:focus {
+        outline-color: black;
+        background-color: #eb6663;
+        color: white;
+      }
+    }
+  }
+}

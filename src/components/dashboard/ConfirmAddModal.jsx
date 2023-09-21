@@ -1,3 +1,5 @@
+import './ConfirmModal.scss'
+
 const ConfirmAddModal = ({onClose, msg, onConfirmAdd}) => {
 
   return (
