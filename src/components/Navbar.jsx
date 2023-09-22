@@ -1,6 +1,5 @@
 import {React, useContext, useState, useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
-import { Link } from "react-scroll";
 
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';

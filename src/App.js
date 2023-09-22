@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import {Routes, Route, useMatch} from 'react-router-dom';
+import axios from 'axios';
 import Modal from 'react-modal';
 
 import { API_BASE_URL } from './config';
@@ -18,6 +19,7 @@ function App() {
   const [user, setUser] = useState({});
   const [adminLogin, setAdminLogin] = useState(false);
   const [title, setTitle] = useState("");
+
   const [menuGroups, setMenuGroups] = useState([]);
   const [menuItems, setmenuItems] = useState([]);
 
@@ -27,6 +29,8 @@ function App() {
     address: '2285 Commercial Dr, Vancouver, BC V5N 4B6',
     tel: '(604) 620-6682'
   };
+
+  console.log(menuGroups);
 
   const url = API_BASE_URL;
 
@@ -40,20 +44,20 @@ function App() {
       setUser(user);
     }
 
+    const f1 = axios.get(`${url}/api/menu-groups`);
     // const f1 = axios.get(`${url}/api/stylists`);
-    // const f2 = axios.get(`${url}/api/service-groups`);
     // const f3 = axios.get(`${url}/api/spec/storeinfo`);
 
 
-    // Promise.all([f1, f2, f3])
-    //   .then(([r1, r2, r3]) => {
+    Promise.all([f1])
+      .then(([r1]) => {
+        setMenuGroups(prev => r1.data.groups);
     //     setTimeTable(r2.data.timeTable);
     //     setStylists(prev => r1.data.stylists);
     //     setAvailability(prev => r1.data.availability);
-    //     setServiceGroups(prev => r2.data.groups);
     //     setServices(prev => r2.data.services);
     //     setStoreInfo(prev => r3.data.storeInfo);
-    //   });
+      });
     }, []); // eslint-disable-line
 
   useEffect(() => {
