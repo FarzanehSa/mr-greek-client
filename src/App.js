@@ -9,6 +9,7 @@ import GeneralContext from './contexts/GeneralContext';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import Menu from './components/Menu';
 import AdminLogin from './components/dashboard/AdminLogin';
 import NavbarAdmin from './components/dashboard/NavbarAdmin';
 import Dashboard from './components/dashboard/Dashboard';
@@ -90,6 +91,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/*" element={<Home />} />
+          <Route path="/menu" element={<Menu />} />
 
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/dashboard/menu-group' element={<MenuGroupDashboard setMenuGroups={setMenuGroups}/>} />

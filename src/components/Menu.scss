@@ -1,0 +1,40 @@
+.menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100vw;
+  margin-top: 8rem;
+  
+  .title {
+    font-size: 2rem;
+    color: black;
+    margin-top: 2rem;
+  }
+
+  .menu-design {
+    // border: 2px solid red;
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem;
+    width: 70%;
+
+
+    .menu-div {
+      
+      border: 3px solid tomato;
+      padding: 2rem;
+      font-size: 1rem;
+      margin: 0.1rem;
+
+      &:hover {
+        font-size: 2rem;
+        padding: 1.41rem;
+      }
+
+    }
+  }
+}
