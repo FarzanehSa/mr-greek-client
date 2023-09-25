@@ -36,8 +36,8 @@ const MenuGroupDashboard = ({setMenuGroups}) => {
 
   const { menuGroups, url } = useContext(GeneralContext);
 
-  const [addGroupForm, setAddGroupForm] = useState({name: ""});
-  const [editGroupForm, setEditGroupForm] = useState({id:"", name: ""});
+  const [addGroupForm, setAddGroupForm] = useState({group: ""});
+  const [editGroupForm, setEditGroupForm] = useState({id:"", group: ""});
   const [deletedGroup, setDeletedGroup] = useState("");
 
   const [modalAddIsOpen, setModalAddIsOpen] = useState(false);
@@ -46,10 +46,9 @@ const MenuGroupDashboard = ({setMenuGroups}) => {
   const [msg, setMsg] = useState("");
 
   const [showEdit, setShowEdit] = useState(false);
-  console.log(addGroupForm);
 
   const onReqEdit = (rId, rName) => {
-    setEditGroupForm({id: rId, name: rName });
+    setEditGroupForm({id: rId, group: rName });
     setShowEdit(true);
   }
 
@@ -72,22 +71,22 @@ const MenuGroupDashboard = ({setMenuGroups}) => {
   }
 
   const onCancelAdd = () => {
-    setAddGroupForm({name: "" });
+    setAddGroupForm({group: "" });
   }
 
   const onCancelEdit = () => {
-    setEditGroupForm({id: "", name: "" });
+    setEditGroupForm({id: "", group: "" });
     setShowEdit(false);
   }
 
   const handleChangeAdd = (event) => {
     const value = event.target.value;
-    setAddGroupForm({name: value})
+    setAddGroupForm({group: value})
   }
 
   const handleChangeEdit = (event) => {
     const value = event.target.value;
-    setEditGroupForm({...editGroupForm, name: value})
+    setEditGroupForm({...editGroupForm, group: value})
   }
 
   const onConfirmAdd = () => {
@@ -95,18 +94,18 @@ const MenuGroupDashboard = ({setMenuGroups}) => {
     .then(res => {
       setMenuGroups(res.data.updateGroups);
     })
-    setAddGroupForm({name: ""});
+    setAddGroupForm({group: ""});
   }
 
   const onConfirmEdit = () => {
     axios.put(`${url}/api/menu-groups`, {group: editGroupForm})
     .then(res => {
       const newGroup = menuGroups.map(row => {
-        return (row.id === res.data.updated.id ? {...row, name: res.data.updated.name} : row)
+        return (row.id === res.data.updated.id ? {...row, group: res.data.updated.name} : row)
       });
       setMenuGroups(newGroup)
     })
-    setEditGroupForm({id: "", name: ""});
+    setEditGroupForm({id: "", group: ""});
     // setShowStatus({add: false, edit: false});
   }
 
@@ -132,11 +131,11 @@ const MenuGroupDashboard = ({setMenuGroups}) => {
       <div key={row.id}>
         <div className={cssMenuGroup}>
           <div className="group-name">
-            <span>{row.name}</span>
+            <span>{row.group}</span>
           </div>
           <div className="buttons">
-            <button className="btn-edit" onClick={() => onReqEdit(row.id, row.name)}><FontAwesomeIcon icon="fa-solid fa-pencil" /></button>
-            <button className="btn-delete" onClick={() => onDelete(row.id, row.name)}><FontAwesomeIcon icon="fa-solid fa-trash" /></button>
+            <button className="btn-edit" onClick={() => onReqEdit(row.id, row.group)}><FontAwesomeIcon icon="fa-solid fa-pencil" /></button>
+            <button className="btn-delete" onClick={() => onDelete(row.id, row.group)}><FontAwesomeIcon icon="fa-solid fa-trash" /></button>
           </div>
         </div>
 
@@ -144,9 +143,9 @@ const MenuGroupDashboard = ({setMenuGroups}) => {
           <form onSubmit={onEdit} className='edit-form'>      
             <CssTextField
               required
-              id="name"
-              name="name"
-              value={editGroupForm.name}
+              id="group"
+              name="group"
+              value={editGroupForm.group}
               onChange={handleChangeEdit}
               variant="outlined"
               size="small"
@@ -184,9 +183,9 @@ const MenuGroupDashboard = ({setMenuGroups}) => {
             <span>Name: </span>    
             <CssTextField
               required
-              id="name"
-              name="name"
-              value={addGroupForm.name}
+              id="group"
+              name="group"
+              value={addGroupForm.group}
               onChange={handleChangeAdd}
               variant="outlined"
               size="small"

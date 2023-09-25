@@ -16,6 +16,9 @@ const NavbarAdmin = ({setUser, zIndex}) => {
           <NavLink className="navlink" to="/">{storeInfo.storeName}</NavLink>
         </div>
       </div>
+      <div className='main-links'>
+        <button className='nav-buttons'><NavLink className="navlink" to="/dashboard">Settings</NavLink></button>
+      </div>
       <div className='login-part'>
         {user.id && !user.access && 
           <div className='user-log'>

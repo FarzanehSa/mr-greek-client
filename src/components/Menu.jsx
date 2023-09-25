@@ -9,7 +9,7 @@ const Menu = () => {
 
   const menuDivs = menuGroups.map((e, i) => {
     return (
-      <div key={i} className="menu-div">{e.name}</div>
+      <div key={i} className="menu-div">{e.group}</div>
     )
   });
 
