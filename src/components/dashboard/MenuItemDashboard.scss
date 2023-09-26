@@ -54,6 +54,64 @@
         align-items: flex-start;
       }
 
+      .image-select {
+        // border: $test2;
+        width: 100%;
+        height: 120px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding-top: 1em;
+        padding-bottom: 1em;
+    
+        .loading-image-sign {
+          margin-left: 1em;
+          margin-right: 1em;
+          color: red;
+        }
+
+        .img-preview-part {
+          margin-left: 1em;
+          margin-right: 1em;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        
+        .img-preview {
+          margin-left: 1em;
+          margin-right: 1em;
+          
+          .img-prev {
+            border-radius: 100%;
+          }
+        }
+    
+        .erase-image {
+          cursor: pointer;
+          &:hover {
+            color: LightSeaGreen;
+          }
+        }
+      }
+
+      .show-img {
+        // border: $test;
+        width: 100%;
+        height: 120px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        .image-field {
+          margin-right: 1em;
+          color: LightSeaGreen;
+        }
+        .img-prev {
+          border-radius: 100%;
+        }
+      }
+
       .input-group {
         display: flex;
         justify-content: center;
@@ -163,12 +221,30 @@
 
 }
 
-
-
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
   margin: 0; 
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  border: 1px solid LightSeaGreen;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 6px 12px;
+  color: LightSeaGreen;
+  cursor: pointer;
+  white-space: noWrap;
+
+  &:hover {
+    // border: 1px solid LightSeaGreen;
+    background-color: LightSeaGreen;
+    color: white;
+  }
 }
 
 @media only screen and (max-width: 960px) {
@@ -254,6 +330,36 @@ input[type=number]::-webkit-outer-spin-button {
           justify-content: flex-start;
           align-items: flex-start;
         }
+
+        .image-select {
+          // border: $test2;
+          width: 100%;
+          height: 120px;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          padding-top: 1em;
+          padding-bottom: 1em;
+      
+          .loading-image-sign {
+            margin-left: 1em;
+            margin-right: 1em;
+            color: red;
+          }
+  
+          .img-preview-part {
+            margin-left: 0.5em;
+            margin-right: 0.5em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+      
+          .img-preview {
+            margin-left: 0.5em;
+            margin-right: 0.5em;
+          }
+        }
   
         .description {
           margin-top: 0.3em;
@@ -327,6 +433,22 @@ input[type=number]::-webkit-outer-spin-button {
         margin: 0.5em 0em 1em 0em;
       }
     }
+  }
+
+  .custom-file-upload {
+    border: 1px solid LightSeaGreen;
+    border-radius: 5px;
+    font-size: 0.8em;
+    display: inline-block;
+    padding: 12px 6px;
+    color: LightSeaGreen;
+    cursor: pointer;
+    white-space: Wrap;
   
+    &:hover {
+      // border: 1px solid LightSeaGreen;
+      background-color: LightSeaGreen;
+      color: white;
+    }
   }
 }

@@ -8,6 +8,8 @@ import { styled } from '@mui/material/styles';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputAdornment from '@mui/material/InputAdornment';
+import CircularProgress from '@mui/material/CircularProgress';
+import FormHelperText from '@mui/material/FormHelperText';
 
 import GeneralContext from "../../contexts/GeneralContext";
 import ConfirmAddModal from "./ConfirmAddModal";
@@ -81,13 +83,15 @@ const MenuItemDashboard = ({setMenuItems}) => {
   const [modalDeleteIsOpen, setModalDeleteIsOpen] = useState(false);
   const [modalEditIsOpen, setModalEditIsOpen] = useState(false);
   const [msg, setMsg] = useState("");
+
+  console.log(editMenuItemForm);
   
   const uploadImage = async e => {
     const name = e.target.name;
     const files = e.target.files;
     const data = new FormData();
-    data.append('file', files[0])
-    data.append('upload_preset', 'Mr.Greek.Upload')
+    data.append('file', files[0]);
+    data.append('upload_preset', 'Mr.Greek.Upload');
 
     setLoading(true);
 
@@ -100,9 +104,9 @@ const MenuItemDashboard = ({setMenuItems}) => {
 
     const file = await res.json()
     if (file.secure_url) {
-      setAddMenuItemForm({ ...addMenuItemForm, [name]: `${file.secure_url}` })
+      setAddMenuItemForm({ ...addMenuItemForm, [name]: `${file.secure_url}` });
     } else {
-      setAddMenuItemForm({ ...addMenuItemForm})
+      setAddMenuItemForm({ ...addMenuItemForm});
     }
     setLoading(false);
     setErrorMsg("");
@@ -114,14 +118,39 @@ const MenuItemDashboard = ({setMenuItems}) => {
     inputRef.current.value = null;
   }
 
+  const changeImage = async e => {
+    const name = e.target.name;
+    const files = e.target.files;
+    const data = new FormData();
+    data.append('file', files[0]);
+    data.append('upload_preset', 'Mr.Greek.Upload');
+
+    setLoadingInEdit(true);
+
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
+    {
+      method: 'post',
+      body: data
+    })
+
+    const file = await res.json()
+    if (file.secure_url) {
+      setEditMenuItemForm({ ...editMenuItemForm, [name]: `${file.secure_url}` })
+    } else {
+      setEditMenuItemForm({ ...editMenuItemForm})
+    }
+    setLoadingInEdit(false);
+    setErrorMsgEdit("");
+  }
+
   const groupsArr = menuGroups.map(row => {
     return (
       <MenuItem key={row.id} value={row.id} >{row.group}</MenuItem>
     )
   });
 
-  const onReqEdit = (id, groupid, item, price, description) => {
-    setEditMenuItemForm({id, groupId: groupid, item, price, description});
+  const onReqEdit = (id, groupid, item, price, description, image) => {
+    setEditMenuItemForm({id, groupId: groupid, item, price, description, image});
     setSearchForm({id: ""});
   }
   
@@ -160,7 +189,7 @@ const MenuItemDashboard = ({setMenuItems}) => {
 
   const onCancelEdit = () => {
     setSearchForm({id: editMenuItemForm.id});
-    setEditMenuItemForm({id:"", groupId:"", item:"", price:"", description:""});
+    setEditMenuItemForm({id:"", groupId:"", item:"", price:"", description:"", image:""});
     setErrorMsgEdit("");
   }
 
@@ -178,7 +207,7 @@ const MenuItemDashboard = ({setMenuItems}) => {
 
   const handleChangeSearch = (event) => {
     const value = event.target.value;
-    setEditMenuItemForm({id:"", groupId:"", item:"", price:"", description:""});
+    setEditMenuItemForm({id:"", groupId:"", item:"", price:"", description:"", image:""});
     setSearchForm({id: value});
   }
 
@@ -187,7 +216,7 @@ const MenuItemDashboard = ({setMenuItems}) => {
     .then(res => {
       setMenuItems(res.data.newMenuItems);
     })
-    setAddMenuItemForm({groupId:"", item:"", price:"", description:""});
+    setAddMenuItemForm({groupId:"", item:"", price:"", description:"", image:""});
   }
 
   const onConfirmEdit = () => {
@@ -195,7 +224,7 @@ const MenuItemDashboard = ({setMenuItems}) => {
     .then(res => {
       setMenuItems(res.data.newMenuItems);
     })
-    setEditMenuItemForm({id:"", groupId:"", item:"", price:"", description:""});
+    setEditMenuItemForm({id:"", groupId:"", item:"", price:"", description:"", image:""});
   }
 
   const onConfirmDelete = () => {
@@ -205,7 +234,7 @@ const MenuItemDashboard = ({setMenuItems}) => {
       setMenuItems(newMenuItems);
     })
     setSearchForm({id: ""})
-    setEditMenuItemForm({id:"", groupId:"", item:"", price:"", description:""});
+    setEditMenuItemForm({id:"", groupId:"", item:"", price:"", description:"", image:""});
     setDeletedMenuItem("");
   }
 
@@ -235,6 +264,16 @@ const MenuItemDashboard = ({setMenuItems}) => {
             <div className="select-group">{row.group}</div>   
           </div>
         </div>
+        <div className='show-img'>
+          <span className="image-field">Image: </span> 
+          <img
+            src={row.image}
+            alt="image1"
+            width="100"
+            height="100"
+            className="img-prev"
+          />
+        </div>
         <div className="description text-description">
           <span className="name-field">Description: </span> 
           <div className="input-group">
@@ -242,7 +281,7 @@ const MenuItemDashboard = ({setMenuItems}) => {
           </div>
         </div>
         <div>
-          <button className="btn-edit" onClick={() => onReqEdit(row.id, row.groupid, row.item, row.price / 100, row.description)}><FontAwesomeIcon icon="fa-solid fa-pencil" /></button>
+          <button className="btn-edit" onClick={() => onReqEdit(row.id, row.groupid, row.item, row.price / 100, row.description, row.image)}><FontAwesomeIcon icon="fa-solid fa-pencil" /></button>
           <button className="btn-delete" onClick={() => onDelete(row.id, row.name)}><FontAwesomeIcon icon="fa-solid fa-trash" /></button>
         </div>
       </div>
@@ -333,7 +372,7 @@ const MenuItemDashboard = ({setMenuItems}) => {
               ref={inputRef}
             />
             <div className='loading-image-sign'>
-              {/* {loading && <CircularProgress style={{'color': 'LightSeaGreen'}}/>} */}
+              {loading && <CircularProgress style={{'color': 'LightSeaGreen'}}/>}
             </div>
             {addMenuItemForm.image &&
               <div className='img-preview-part'>
@@ -341,8 +380,9 @@ const MenuItemDashboard = ({setMenuItems}) => {
                   <img
                     src={addMenuItemForm.image}
                     alt="image1"
-                    width="80"
-                    height="80"
+                    width="100"
+                    height="100"
+                    className="img-prev"
                   />
                 </div>
                 <div id='image' onClick={deleteImage}>
@@ -350,9 +390,9 @@ const MenuItemDashboard = ({setMenuItems}) => {
                 </div>
               </div>
             }
-            {/* {errorMsg && 
+            {errorMsg && 
               <FormHelperText style={{'color': 'red'}}>{errorMsg}</FormHelperText>
-            } */}
+            }
           </div> 
           <div className="description">
             <span>Description: </span>
@@ -445,7 +485,7 @@ const MenuItemDashboard = ({setMenuItems}) => {
                     className="input-price"
                   />
                 </div>
-              </div>
+              </div>  
               <div className="group">
                 <div className="input-group">
                   <span>Group: </span>    
@@ -463,6 +503,37 @@ const MenuItemDashboard = ({setMenuItems}) => {
                     {groupsArr}
                   </CssTextField>
                 </div>
+              </div>
+              <div className='image-select'>
+                <label htmlFor="file-change-image" className="custom-file-upload">
+                  Change Image
+                </label>
+                <input 
+                  id="file-change-image" 
+                  type="file"
+                  name="image"
+                  accept={'image/*'} 
+                  onChange={changeImage}
+                />
+                <div className='loading-image-sign'>
+                  {loadingInEdit && <CircularProgress style={{'color': 'LightSeaGreen'}}/>}
+                </div>
+                {editMenuItemForm.image &&
+                  <div className='img-preview-part'>
+                    <div className='img-preview'>
+                      <img
+                        src={editMenuItemForm.image}
+                        alt="image1"
+                        width="100"
+                        height="100"
+                        className="img-prev"
+                      />
+                    </div>
+                  </div>
+                }
+                {errorMsgEdit && 
+                  <FormHelperText style={{'color': 'red'}}>{errorMsg}</FormHelperText>
+                }
               </div>
               <div className="description">
                 <span className="name-field">Description: </span>

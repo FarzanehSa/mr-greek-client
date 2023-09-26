@@ -26,15 +26,23 @@
     .menu-div {
       
       border: 3px solid tomato;
-      padding: 2rem;
+      padding: 1rem;
       font-size: 1rem;
       margin: 0.1rem;
 
       &:hover {
-        font-size: 2rem;
-        padding: 1.41rem;
+        font-size: 1.5rem;
+        padding: 0.7rem;
+        border-style: dotted;
+        // background-color: tomato;
+        // color: white;
       }
+    }
 
+    .menu-div-select {
+      font-size: 1.5rem;
+      padding: 0.7rem;
+      border-style:dotted;
     }
   }
 }
