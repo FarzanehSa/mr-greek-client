@@ -27,9 +27,7 @@
     padding: 2rem;
     width: 70%;
 
-
     .menu-div {
-      
       border: 3px solid tomato;
       padding: 1rem;
       font-size: 1rem;
@@ -94,6 +92,106 @@
         border: 3px solid tomato;
       }
     }
+  }
+}
 
+@media only screen and (max-width: 755px) {
+  .menu {
+    .menu-design {
+      padding: 1.5rem;
+      width: 80%;
+    }
+
+    .show-items-part {
+      width: 85%;
+  
+      .item-box {
+        width: 200px;
+        margin: 1rem;
+        padding-right: 0.5rem;
+        padding-left: 0.5rem;
+        text-align: center;
+  
+        .food-img {
+          // border: 2px solid grey;
+          border-radius: 7px 7px 0 0;
+          // padding-top: 1px;
+          height: 150px;
+          width: 194px;
+        }
+  
+        .item-name {
+          height: 50px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 546px) {
+  .menu {
+  
+    .title {
+      font-size: 1.5rem;
+      text-align: center;
+    }
+  
+    .menu-design {
+      margin-top: 0.5rem;
+      padding: 1rem;
+      width: 90%;
+  
+      .menu-div {
+        border: 3px solid tomato;
+        padding: 0.8rem;
+        font-size: 0.9rem;
+        margin: 0.1rem;
+  
+        &:hover {
+          font-size: 1.1rem;
+          padding: 0.7rem;
+        }
+      }
+  
+      .menu-div-select {
+        font-size: 1.1rem;
+        padding: 0.7rem;
+      }
+    }
+  
+    .show-items-part {
+      width: 80%;
+      margin: 0.5rem;
+  
+      .item-box {
+        width: 270px;
+        margin: 1rem;
+        padding-right: 0.5rem;
+        padding-left: 0.5rem;
+        text-align: center;
+  
+        .food-img {
+          // border: 2px solid grey;
+          border-radius: 7px 7px 0 0;
+          // padding-top: 1px;
+          height: 200px;
+          width: 264px;
+        }
+  
+        .item-name {
+          height: 64px;
+          font-size: 1.2rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+  
+        &:hover{
+          border: 3px solid tomato;
+        }
+      }
+  
+    }
   }
 }
