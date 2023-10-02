@@ -1,5 +1,4 @@
 .food-item {
-
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -20,20 +19,21 @@
     margin-top: 2rem;
 
     .left-side {
-      width: 40%;
+      width: 50%;
       height: 55vh;
 
       .item-img {
         width: 100% ;
-        height: 70%;
+        height: 30vW;
         border-radius: 10px;
       }
     }
 
     .right-side {
-      width: 60%;
+      // border: 1px solid red;
+      width: 50%;
       height: 55vh;
-      padding: 2rem 2rem;
+      padding: 0 0 0 2rem;
 
       .name-price {
         display: flex;
@@ -57,9 +57,133 @@
       .description {
         padding-top: 2rem;
         font-size: 1.1rem;
+        text-align: justify;
       }
     }
-
   }
+}
 
+@media only screen and (max-width: 755px) {
+  .food-item {
+    margin-top: 6rem;
+    
+    .wave-img {
+      height: 150px;
+      width: 90%;
+    }
+  
+    .item {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      width: 90%;
+      margin-top: 2rem;
+  
+      .left-side {
+        // border: 1px solid red;
+        width: 80%;
+        height: auto;
+        margin-bottom: 2rem;
+  
+        .item-img {
+          width: 100% ;
+          height: 30vW;
+          border-radius: 10px;
+        }
+      }
+  
+      .right-side {
+        // border: 1px solid red;
+        width: 80%;
+        height: auto;
+        padding: 0 1rem 0 1rem;
+  
+        .name-price {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: flex-start;
+  
+          .title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+          }
+          .item-price {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0rem;
+            padding-left: 1rem;
+          }
+        }
+  
+        .description {
+          padding-top: 1rem;
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .food-item {
+    margin-top: 6rem;
+    
+    .wave-img {
+      height: 150px;
+      width: 90%;
+    }
+  
+    .item {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      width: 90%;
+      margin-top: 0.5rem;
+  
+      .left-side {
+        width: 85%;
+        height: auto;
+        margin-bottom: 2rem;
+  
+        .item-img {
+          width: 100% ;
+          height: 30vW;
+          border-radius: 10px;
+        }
+      }
+  
+      .right-side {
+        // border: 1px solid red;
+        width: 85%;
+        height: auto;
+        padding: 0 0.5rem 0 0.5rem;
+  
+        .name-price {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: flex-start;
+  
+          .title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.7rem;
+          }
+          .item-price {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0rem;
+            padding-left: 0.7rem;
+          }
+        }
+  
+        .description {
+          padding-top: 0.7rem;
+          font-size: 1rem;
+        }
+      }
+    }
+  }
 }

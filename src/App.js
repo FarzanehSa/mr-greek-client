@@ -25,6 +25,7 @@ function App() {
 
   const [menuGroups, setMenuGroups] = useState([]);
   const [menuItems, setMenuItems] = useState([]);
+  const [allFeatures, setAllFeatures] = useState([]);
 
   const storeInfo = {
     imgUrl:'../greek-logo.png',
@@ -35,6 +36,7 @@ function App() {
 
   console.log("📗", menuGroups);
   console.log("🥙", menuItems);
+  console.log(allFeatures);
 
   const url = API_BASE_URL;
 
@@ -50,18 +52,16 @@ function App() {
 
     const f1 = axios.get(`${url}/api/menu-groups`);
     const f2 = axios.get(`${url}/api/menu-items`);
+    const f3 = axios.get(`${url}/api/features`);
+
     // const f3 = axios.get(`${url}/api/spec/storeinfo`);
 
 
-    Promise.all([f1, f2])
-      .then(([r1, r2]) => {
+    Promise.all([f1, f2, f3])
+      .then(([r1, r2, r3]) => {
         setMenuGroups(prev => r1.data.groups);
-        setMenuItems(prev => r2.data.items)
-    //     setTimeTable(r2.data.timeTable);
-    //     setStylists(prev => r1.data.stylists);
-    //     setAvailability(prev => r1.data.availability);
-    //     setServices(prev => r2.data.services);
-    //     setStoreInfo(prev => r3.data.storeInfo);
+        setMenuItems(prev => r2.data.items);
+        setAllFeatures(prev => r3.data.features);
       });
     }, []); // eslint-disable-line
 
@@ -100,7 +100,7 @@ function App() {
 
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/dashboard/menu-group' element={<MenuGroupDashboard setMenuGroups={setMenuGroups}/>} />
-          <Route path='/dashboard/menu-item' element={<MenuItemDashboard setMenuItems={setMenuItems}/>}/>
+          <Route path='/dashboard/menu-item' element={<MenuItemDashboard setMenuItems={setMenuItems} allFeatures={allFeatures}/>}/>
         </Routes>
         <Modal
           isOpen={adminLogin}

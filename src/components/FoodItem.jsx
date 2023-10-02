@@ -8,7 +8,7 @@ const FoodItem = () => {
 
   const id = useParams().id.split("_").join(" ");
   const { menuItems } = useContext(GeneralContext);
-  const [item, setItem] = useState([]);
+  const [item, setItem] = useState();
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -19,29 +19,30 @@ const FoodItem = () => {
   }, [menuItems]);
 
   return (
+    item &&
     <div className="food-item">
-      <img
-        src="../wave.jpg"
-        alt="wave"
-        className="wave-img"
-      />
-      <div className="item">
-        <div className="left-side">
-          <img 
-            src={item.image}
-            alt={item.item+' image'}
-            className="item-img"
-          />
-        </div>
-        <div className="right-side">
-          <div className="name-price">
-            <span className="title">{item.item}</span>
-            <span className="item-price">${item.price / 100}</span>
+        <img
+          src="../wave.jpg"
+          alt="wave"
+          className="wave-img"
+        />
+        <div className="item">
+          <div className="left-side">
+            <img 
+              src={item.image}
+              alt={item.item+' image'}
+              className="item-img"
+            />
           </div>
-          <p className="description">{item.description}</p>
-          
+          <div className="right-side">
+            <div className="name-price">
+              <span className="title">{item.item}</span>
+              <span className="item-price">${item.price / 100}</span>
+            </div>
+            <p className="description">{item.description}</p>
+            
+          </div>
         </div>
-      </div>
     </div>
   )
 }

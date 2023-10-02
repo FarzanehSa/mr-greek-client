@@ -10,6 +10,9 @@ import MenuItem from '@mui/material/MenuItem';
 import InputAdornment from '@mui/material/InputAdornment';
 import CircularProgress from '@mui/material/CircularProgress';
 import FormHelperText from '@mui/material/FormHelperText';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import { cyan } from '@mui/material/colors';
 
 import GeneralContext from "../../contexts/GeneralContext";
 import ConfirmAddModal from "./ConfirmAddModal";
@@ -62,12 +65,14 @@ const CssSelect = styled(Select)({
   }
 });
 
-const MenuItemDashboard = ({setMenuItems}) => {
+const MenuItemDashboard = ({setMenuItems, allFeatures}) => {
 
   const { menuGroups, menuItems, url } = useContext(GeneralContext);
   
   const [addMenuItemForm, setAddMenuItemForm] = useState({groupId:"", item:"", price:"", description:"", image:""});
+  const [addFeaturesForm, setAddFeaturesForm] = useState([]);
   const [editMenuItemForm, setEditMenuItemForm] = useState({id:"", groupId:"", item:"", price:"", description:"", image:""});
+  const [editFeaturesForm, setEditFeaturesForm] = useState([]);
   const [searchForm, setSearchForm] = useState({id: ""});
   const [deletedMenuItem, setDeletedMenuItem] = useState("");
 
@@ -84,7 +89,15 @@ const MenuItemDashboard = ({setMenuItems}) => {
   const [modalEditIsOpen, setModalEditIsOpen] = useState(false);
   const [msg, setMsg] = useState("");
 
-  console.log(editMenuItemForm);
+  // console.log(addFeaturesForm);
+  console.log(editFeaturesForm);
+
+  useEffect(() => {
+    const featuresArr = allFeatures.map(row => {
+      return ({...row, select: false})
+    })
+    setAddFeaturesForm([...featuresArr])
+  }, [allFeatures]);
   
   const uploadImage = async e => {
     const name = e.target.name;
@@ -149,8 +162,15 @@ const MenuItemDashboard = ({setMenuItems}) => {
     )
   });
 
-  const onReqEdit = (id, groupid, item, price, description, image) => {
+  const onReqEdit = (id, groupid, item, price, description, image, features) => {
     setEditMenuItemForm({id, groupId: groupid, item, price, description, image});
+    const featuresArr = allFeatures.map(row => {
+      return (
+        {...row, select: (features.indexOf(row.id) !== -1)}
+      )
+    })
+    setEditFeaturesForm([...featuresArr]);
+
     setSearchForm({id: ""});
   }
   
@@ -184,6 +204,7 @@ const MenuItemDashboard = ({setMenuItems}) => {
 
   const onCancelAdd = () => {
     setAddMenuItemForm({groupId:"", item:"", price:"", description:""});
+    setAddFeaturesForm(addFeaturesForm.map(row => {return ({...row, select: false})}));
     setErrorMsgAdd("");
   }
 
@@ -212,11 +233,12 @@ const MenuItemDashboard = ({setMenuItems}) => {
   }
 
   const onConfirmAdd = () => {
-    axios.post(`${url}/api/menu-items`, {...addMenuItemForm, item: addMenuItemForm.item.trim(), description: addMenuItemForm.description.trim()})
+    axios.post(`${url}/api/menu-items`, {...addMenuItemForm, item: addMenuItemForm.item.trim(), description: addMenuItemForm.description.trim(), features:[...addFeaturesForm]})
     .then(res => {
       setMenuItems(res.data.newMenuItems);
     })
     setAddMenuItemForm({groupId:"", item:"", price:"", description:"", image:""});
+    setAddFeaturesForm(addFeaturesForm.map(row => {return ({...row, select: false})}));
   }
 
   const onConfirmEdit = () => {
@@ -243,6 +265,15 @@ const MenuItemDashboard = ({setMenuItems}) => {
     setModalEditIsOpen(false);
     setModalAddIsOpen(false);
   }
+
+  const handleChangeAddfeature = (event) => {
+    const id = Number(event.target.value);
+    const checked = event.target.checked;
+    setAddFeaturesForm(addFeaturesForm.map(row => {
+      if (row.id === id ) return {...row, select: checked}
+      else return {...row}
+    }));
+  };
 
   const menuItemDetails = menuItems.filter(item => item.id === searchForm.id)
   .map(row => {
@@ -274,6 +305,20 @@ const MenuItemDashboard = ({setMenuItems}) => {
             className="img-prev"
           />
         </div>
+        <div className="item-features">
+          <span className="name-field">Features: </span>
+          {row.features[0] !== null &&
+            <div className="options">
+              {row.features.map((id, index) => {
+                const x = allFeatures.filter(e => e.id === id)[0];
+                const sep = (index < row.features.length - 1)  ? "," : "";
+                return (
+                  <span className="single-feature" key={index}>{x.name + sep} </span>
+                )
+              })}
+            </div>
+          }
+        </div>
         <div className="description text-description">
           <span className="name-field">Description: </span> 
           <div className="input-group">
@@ -281,10 +326,33 @@ const MenuItemDashboard = ({setMenuItems}) => {
           </div>
         </div>
         <div>
-          <button className="btn-edit" onClick={() => onReqEdit(row.id, row.groupid, row.item, row.price / 100, row.description, row.image)}><FontAwesomeIcon icon="fa-solid fa-pencil" /></button>
+          <button className="btn-edit" onClick={() => onReqEdit(row.id, row.groupid, row.item, row.price / 100, row.description, row.image, row.features)}><FontAwesomeIcon icon="fa-solid fa-pencil" /></button>
           <button className="btn-delete" onClick={() => onDelete(row.id, row.name)}><FontAwesomeIcon icon="fa-solid fa-trash" /></button>
         </div>
       </div>
+    )
+  })
+
+  const featuresData = addFeaturesForm.map ((row) => {
+    return (
+      <FormControlLabel key={row.id}
+      control={
+        <Checkbox 
+          onChange={handleChangeAddfeature} 
+          name={row.name} 
+          checked={row.select} 
+          value={row.id}
+          sx={{
+            color: cyan[800],
+            '&.Mui-checked': {
+              color: cyan[600],
+            },
+          }}
+        />
+      }
+      label={row.name}
+      className="single-feature"
+      />
     )
   })
 
@@ -393,7 +461,13 @@ const MenuItemDashboard = ({setMenuItems}) => {
             {errorMsg && 
               <FormHelperText style={{'color': 'red'}}>{errorMsg}</FormHelperText>
             }
-          </div> 
+          </div>
+          <div className="item-features">
+            <span>Features: </span>
+            <div className="options">
+              {featuresData}
+            </div>
+          </div>
           <div className="description">
             <span>Description: </span>
             <div className="input-group">
