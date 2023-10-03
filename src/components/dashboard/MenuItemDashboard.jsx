@@ -211,6 +211,7 @@ const MenuItemDashboard = ({setMenuItems, allFeatures}) => {
   const onCancelEdit = () => {
     setSearchForm({id: editMenuItemForm.id});
     setEditMenuItemForm({id:"", groupId:"", item:"", price:"", description:"", image:""});
+    setEditFeaturesForm([]);
     setErrorMsgEdit("");
   }
 
@@ -226,9 +227,19 @@ const MenuItemDashboard = ({setMenuItems, allFeatures}) => {
     setErrorMsgEdit("");
   }
 
+  const handleChangeEditFeature = (event) => {
+    const id = Number(event.target.value);
+    const checked = event.target.checked;
+    setEditFeaturesForm(editFeaturesForm.map(row => {
+      if (row.id === id ) return {...row, select: checked}
+      else return {...row}
+    }));
+  }
+
   const handleChangeSearch = (event) => {
     const value = event.target.value;
     setEditMenuItemForm({id:"", groupId:"", item:"", price:"", description:"", image:""});
+    setEditFeaturesForm([]);
     setSearchForm({id: value});
   }
 
@@ -242,11 +253,12 @@ const MenuItemDashboard = ({setMenuItems, allFeatures}) => {
   }
 
   const onConfirmEdit = () => {
-    axios.put(`${url}/api/menu-items`, {...editMenuItemForm, item: editMenuItemForm.item.trim(), description: editMenuItemForm.description.trim()})
+    axios.put(`${url}/api/menu-items`, {...editMenuItemForm, item: editMenuItemForm.item.trim(), description: editMenuItemForm.description.trim(), features:[...editFeaturesForm]})
     .then(res => {
       setMenuItems(res.data.newMenuItems);
     })
     setEditMenuItemForm({id:"", groupId:"", item:"", price:"", description:"", image:""});
+    setEditFeaturesForm([]);
   }
 
   const onConfirmDelete = () => {
@@ -562,7 +574,7 @@ const MenuItemDashboard = ({setMenuItems, allFeatures}) => {
               </div>  
               <div className="group">
                 <div className="input-group">
-                  <span>Group: </span>    
+                  <span className="name-field">Group: </span>    
                   <CssTextField
                     required
                     id="groupId"
@@ -608,6 +620,34 @@ const MenuItemDashboard = ({setMenuItems, allFeatures}) => {
                 {errorMsgEdit && 
                   <FormHelperText style={{'color': 'red'}}>{errorMsg}</FormHelperText>
                 }
+              </div>
+              <div className="item-features">
+                <span className="title-2">Features: </span>
+                <div className="options">
+                  {
+                    editFeaturesForm.map(row => {
+                      return (
+                        <FormControlLabel key={row.id}
+                        control={
+                          <Checkbox 
+                            onChange={handleChangeEditFeature} 
+                            name={row.name} 
+                            checked={row.select} 
+                            value={row.id}
+                            sx={{
+                              color: cyan[800],
+                              '&.Mui-checked': {
+                                color: cyan[600],
+                              },
+                            }}
+                          />
+                        }
+                        label={row.name}
+                        />
+                      )
+                    })
+                  }
+                </div>
               </div>
               <div className="description">
                 <span className="name-field">Description: </span>
