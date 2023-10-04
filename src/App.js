@@ -96,7 +96,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/*" element={<Home />} />
           <Route path="/menu" element={<Menu />} />
-          <Route path="/menu/:id" element={<FoodItem />} />
+          <Route path="/menu/:id" element={<FoodItem allFeatures={allFeatures}/>} />
 
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/dashboard/menu-group' element={<MenuGroupDashboard setMenuGroups={setMenuGroups}/>} />
