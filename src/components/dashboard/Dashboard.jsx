@@ -8,10 +8,10 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-page">
-      <NavLink to="/dashboard/setting" tabIndex="-1">
+      <NavLink to="/dashboard/store-setting" tabIndex="-1">
         <button className="btn-setting">
           <div className="sign"><FontAwesomeIcon icon="fa-solid fa-gear" /></div>
-          <span>Setting</span>
+          <span>Store Setting</span>
         </button>
       </NavLink>
       <NavLink to="/dashboard/menu-group" tabIndex="-1">

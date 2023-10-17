@@ -14,6 +14,7 @@ import FoodItem from './components/FoodItem';
 import AdminLogin from './components/dashboard/AdminLogin';
 import NavbarAdmin from './components/dashboard/NavbarAdmin';
 import Dashboard from './components/dashboard/Dashboard';
+import StoreSettingDashboard from './components/dashboard/StoreSettingDashboard';
 import MenuGroupDashboard from './components/dashboard/MenuGroupDashboard';
 import MenuItemDashboard from './components/dashboard/MenuItemDashboard';
 
@@ -27,12 +28,17 @@ function App() {
   const [menuItems, setMenuItems] = useState([]);
   const [allFeatures, setAllFeatures] = useState([]);
 
-  const storeInfo = {
-    imgUrl:'../greek-logo.png',
-    storeName: 'Mr.Greek Donair',
-    address: '2285 Commercial Dr, Vancouver, BC V5N 4B6',
-    tel: '(604) 620-6682'
-  };
+  const [storeInfo, setStoreInfo] = useState(
+  {
+    // imgUrl:'../greek-logo.png',
+    // storeName: 'Mr.Greek Donair',
+    // address: '2285 Commercial Dr, Vancouver, BC V5N 4B6',
+    // tel: '(604) 620-6682'
+    imgUrl:'',
+    storeName: '',
+    address: '',
+    tel: ''
+  });
 
   console.log("📗", menuGroups);
   console.log("🥙", menuItems);
@@ -99,6 +105,8 @@ function App() {
           <Route path="/menu/:id" element={<FoodItem allFeatures={allFeatures}/>} />
 
           <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/dashboard/store-setting' element={<StoreSettingDashboard setMenuGroups={setMenuGroups} setMenuItems={setMenuItems} storeInfo={storeInfo} setStoreInfo={setStoreInfo}/>} />
           <Route path='/dashboard/menu-group' element={<MenuGroupDashboard setMenuGroups={setMenuGroups}/>} />
           <Route path='/dashboard/menu-item' element={<MenuItemDashboard setMenuItems={setMenuItems} allFeatures={allFeatures}/>}/>
         </Routes>

@@ -56,7 +56,7 @@ const FoodItem = ({ allFeatures }) => {
               <span className="item-price">${item.price / 100}</span>
             </div>
             <div className="feature-image-part">
-              {item.features.map(e => {
+              {item.features.sort().map(e => {
                 const row = allFeatures.filter(row => row.id === e)[0];
                   return (
                     <img 

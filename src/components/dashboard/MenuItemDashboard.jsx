@@ -622,7 +622,7 @@ const MenuItemDashboard = ({setMenuItems, allFeatures}) => {
                 }
               </div>
               <div className="item-features">
-                <span className="title-2">Features: </span>
+                <span className="name-field">Features: </span>
                 <div className="options">
                   {
                     editFeaturesForm.map(row => {
