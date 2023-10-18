@@ -91,24 +91,24 @@ const MenuItemDashboard = ({setMenuItems, storeInfo, setStoreInfo}) => {
   const [modalEditIsOpen, setModalEditIsOpen] = useState(false);
   const [msg, setMsg] = useState("");
 
+  // 🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻
   console.log(infoForm);
-
+  
   const uploadImage = async e => {
     const name = e.target.name;
     const files = e.target.files;
     const data = new FormData();
     data.append('file', files[0]);
     data.append('upload_preset', 'Mr.Greek.Upload');
-
+    
     setLoading(true);
-
-    // const res = await fetch(`https://api.cloudinary.com/v1_1/demoshoebox/image/upload`,
+    
     const res = await fetch(`https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
     {
       method: 'post',
       body: data
     })
-
+    
     const file = await res.json()
     if (file.secure_url) {
       setInfoForm({ ...infoForm, [name]: `${file.secure_url}` });
@@ -118,12 +118,30 @@ const MenuItemDashboard = ({setMenuItems, storeInfo, setStoreInfo}) => {
     setLoading(false);
     setErrorMsg("");
   }
-
+  
   const deleteImage = (e) => {
     const name = e.currentTarget.id;
-    setAddMenuItemForm({ ...addMenuItemForm, [name]: "" });
+    setInfoForm({ ...infoForm, [name]: "" });
     inputRef.current.value = null;
   }
+
+  const onSave = (event) => {
+    event.preventDefault();
+    setMsg(`Are you ready to add update store info?`);
+    setModalAddIsOpen(true);
+  }
+
+  const onCancelSave = () => {
+    setInfoForm({...storeInfo});
+  }
+
+  const handleChangeSave = (event) => {
+    const {name, value} = event.target;
+    setInfoForm({...infoForm, [name]: value});
+  }
+  
+  // 🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻
+
 
   const changeImage = async e => {
     const name = e.target.name;
@@ -150,25 +168,14 @@ const MenuItemDashboard = ({setMenuItems, storeInfo, setStoreInfo}) => {
     setErrorMsgEdit("");
   }
   
-  const onSave = (event) => {
-    event.preventDefault();
-    setMsg(`Are you ready to add update store info?`);
-    setModalAddIsOpen(true);
-  }
+  
 
-  const onCancelSave = () => {
-    setAddMenuItemForm({groupId:"", item:"", price:"", description:""});
-    setAddFeaturesForm(addFeaturesForm.map(row => {return ({...row, select: false})}));
-    setErrorMsgAdd("");
-  }
+  
 
-  const handleChangeSave = (event) => {
-    const {name, value} = event.target;
-    setInfoForm({...infoForm, [name]: value});
-  }
+
 
   const onConfirmAdd = () => {
-    axios.post(`${url}/api/menu-items`, {...addMenuItemForm, item: addMenuItemForm.item.trim(), description: addMenuItemForm.description.trim(), features:[...addFeaturesForm]})
+    axios.post(`${url}/api/store-setting`, {...addMenuItemForm, item: addMenuItemForm.item.trim(), description: addMenuItemForm.description.trim(), features:[...addFeaturesForm]})
     .then(res => {
       setMenuItems(res.data.newMenuItems);
     })
@@ -210,10 +217,10 @@ const MenuItemDashboard = ({setMenuItems, storeInfo, setStoreInfo}) => {
             <span>Store Name: </span>    
             <CssTextField
               // required
-              id="storeName"
-              name="storeName"
+              id="storename"
+              name="storename"
               // value={addMenuItemForm.item}
-              value={infoForm.storeName}
+              value={infoForm.storename}
               onChange={handleChangeSave}
               variant="outlined"
               size="small"
@@ -260,7 +267,7 @@ const MenuItemDashboard = ({setMenuItems, storeInfo, setStoreInfo}) => {
             <input
               id="file-upload-image" 
               type="file"
-              name="imgUrl"
+              name="logo"
               accept={'image/*'} 
               onChange={uploadImage}
               ref={inputRef}
@@ -268,11 +275,11 @@ const MenuItemDashboard = ({setMenuItems, storeInfo, setStoreInfo}) => {
             <div className='loading-image-sign'>
               {loading && <CircularProgress style={{'color': 'LightSeaGreen'}}/>}
             </div>
-            {infoForm.imgUrl &&
+            {infoForm.logo &&
               <div className='img-preview-part'>
                 <div className='img-preview'>
                   <img
-                    src={infoForm.imgUrl}
+                    src={infoForm.logo}
                     alt="logo"
                     width="100"
                     height="100"

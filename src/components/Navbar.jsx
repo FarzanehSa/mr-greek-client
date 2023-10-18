@@ -37,9 +37,9 @@ const Navbar = ({setUser}) => {
     <div className="n-wrapper">
       <div className="n-row">
         <div className='logo-name-img'>
-          {/* <img className='logo-image' src={storeInfo.imgUrl} alt="logo" /> */}
+          {/* <img className='logo-image' src={storeInfo.logo} alt="logo" /> */}
           <span className='logo-name'>
-            {storeInfo.storeName}
+            {storeInfo.storename}
           </span>
         </div>
         <div className="n-right">

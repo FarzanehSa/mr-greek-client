@@ -6,7 +6,7 @@ function Footer({storeInfo}) {
 
   return (
     <div className="footer-bar">
-      <img src={storeInfo.imgUrl} alt='logo' className="logo"/>
+      <img src={storeInfo.logo} alt='logo' className="logo"/>
       <span className="address">
         {storeInfo.address}
       </span>

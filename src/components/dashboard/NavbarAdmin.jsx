@@ -11,9 +11,9 @@ const NavbarAdmin = ({setUser, zIndex}) => {
   return (
     <div className="navbar-admin-page" style={{zIndex:zIndex}}>
       <div className='logo-name-img'>
-        {/* <img className='logo-image' src={storeInfo.imgUrl} alt="logo" /> */}
+        {/* <img className='logo-image' src={storeInfo.logo} alt="logo" /> */}
         <div className='logo-name'>
-          <NavLink className="navlink" to="/">{storeInfo.storeName}</NavLink>
+          <NavLink className="navlink" to="/">{storeInfo.storename}</NavLink>
         </div>
       </div>
       <div className='main-links'>

@@ -30,12 +30,12 @@ function App() {
 
   const [storeInfo, setStoreInfo] = useState(
   {
-    // imgUrl:'../greek-logo.png',
-    // storeName: 'Mr.Greek Donair',
+    // logo:'../greek-logo.png',
+    // storename: 'Mr.Greek Donair',
     // address: '2285 Commercial Dr, Vancouver, BC V5N 4B6',
     // tel: '(604) 620-6682'
-    imgUrl:'',
-    storeName: '',
+    logo:'',
+    storename: '',
     address: '',
     tel: ''
   });
@@ -43,6 +43,7 @@ function App() {
   console.log("📗", menuGroups);
   console.log("🥙", menuItems);
   console.log(allFeatures);
+  console.log("🏪", storeInfo);
 
   const url = API_BASE_URL;
 
@@ -59,15 +60,17 @@ function App() {
     const f1 = axios.get(`${url}/api/menu-groups`);
     const f2 = axios.get(`${url}/api/menu-items`);
     const f3 = axios.get(`${url}/api/features`);
+    const f4 = axios.get(`${url}/api/store-settings`);
 
     // const f3 = axios.get(`${url}/api/spec/storeinfo`);
 
 
-    Promise.all([f1, f2, f3])
-      .then(([r1, r2, r3]) => {
+    Promise.all([f1, f2, f3, f4])
+      .then(([r1, r2, r3, r4]) => {
         setMenuGroups(prev => r1.data.groups);
         setMenuItems(prev => r2.data.items);
         setAllFeatures(prev => r3.data.features);
+        setStoreInfo(prev => r4.data.settings);
       });
     }, []); // eslint-disable-line
 
