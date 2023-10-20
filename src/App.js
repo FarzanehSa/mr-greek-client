@@ -28,21 +28,10 @@ function App() {
   const [menuItems, setMenuItems] = useState([]);
   const [allFeatures, setAllFeatures] = useState([]);
 
-  const [storeInfo, setStoreInfo] = useState(
-  {
-    // logo:'../greek-logo.png',
-    // storename: 'Mr.Greek Donair',
-    // address: '2285 Commercial Dr, Vancouver, BC V5N 4B6',
-    // tel: '(604) 620-6682'
-    logo:'',
-    storename: '',
-    address: '',
-    tel: ''
-  });
+  const [storeInfo, setStoreInfo] = useState({storename:"", logo:"", address:"", tel:""});
 
   console.log("📗", menuGroups);
   console.log("🥙", menuItems);
-  console.log(allFeatures);
   console.log("🏪", storeInfo);
 
   const url = API_BASE_URL;
@@ -70,7 +59,7 @@ function App() {
         setMenuGroups(prev => r1.data.groups);
         setMenuItems(prev => r2.data.items);
         setAllFeatures(prev => r3.data.features);
-        setStoreInfo(prev => r4.data.settings);
+        setStoreInfo(prev => r4.data.settings[0]);
       });
     }, []); // eslint-disable-line
 

@@ -67,32 +67,21 @@ const CssSelect = styled(Select)({
 
 const MenuItemDashboard = ({setMenuItems, storeInfo, setStoreInfo}) => {
 
-  const { menuGroups, menuItems, url } = useContext(GeneralContext);
+  const { url } = useContext(GeneralContext);
 
   const [infoForm, setInfoForm] = useState({...storeInfo});
-  
-  
-  const [addMenuItemForm, setAddMenuItemForm] = useState({groupId:"", item:"", price:"", description:"", image:""});
-  const [addFeaturesForm, setAddFeaturesForm] = useState([]);
-  const [editMenuItemForm, setEditMenuItemForm] = useState({id:"", groupId:"", item:"", price:"", description:"", image:""});
-  const [editFeaturesForm, setEditFeaturesForm] = useState([]);
-  const [deletedMenuItem, setDeletedMenuItem] = useState("");
-
-  const [errorMsgAdd, setErrorMsgAdd] = useState("");
-  const [errorMsgEdit, setErrorMsgEdit] = useState("");
 
   const [loading, setLoading] = useState(false);
-  const [loadingInEdit, setLoadingInEdit] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const inputRef = useRef(null);
 
   const [modalAddIsOpen, setModalAddIsOpen] = useState(false);
-  const [modalDeleteIsOpen, setModalDeleteIsOpen] = useState(false);
-  const [modalEditIsOpen, setModalEditIsOpen] = useState(false);
   const [msg, setMsg] = useState("");
 
   // 🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻
-  console.log(infoForm);
+  useEffect(() => {
+    setInfoForm({...storeInfo})
+  },[storeInfo]);
   
   const uploadImage = async e => {
     const name = e.target.name;
@@ -139,11 +128,21 @@ const MenuItemDashboard = ({setMenuItems, storeInfo, setStoreInfo}) => {
     const {name, value} = event.target;
     setInfoForm({...infoForm, [name]: value});
   }
+
+  const onConfirmAdd = () => {
+    axios.put(`${url}/api/store-settings`, {...infoForm})
+    .then(res => {
+      setStoreInfo(res.data.settings[0]);
+    })
+  }
+
+  const closeModal = () => {
+    setModalAddIsOpen(false);
+  }
   
   // 🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻
 
-
-  const changeImage = async e => {
+ /*  const changeImage = async e => {
     const name = e.target.name;
     const files = e.target.files;
     const data = new FormData();
@@ -166,49 +165,18 @@ const MenuItemDashboard = ({setMenuItems, storeInfo, setStoreInfo}) => {
     }
     setLoadingInEdit(false);
     setErrorMsgEdit("");
-  }
-  
-  
-
-  
-
-
-
-  const onConfirmAdd = () => {
-    axios.post(`${url}/api/store-setting`, {...addMenuItemForm, item: addMenuItemForm.item.trim(), description: addMenuItemForm.description.trim(), features:[...addFeaturesForm]})
-    .then(res => {
-      setMenuItems(res.data.newMenuItems);
-    })
-    setAddMenuItemForm({groupId:"", item:"", price:"", description:"", image:""});
-    setAddFeaturesForm(addFeaturesForm.map(row => {return ({...row, select: false})}));
-  }
-
-  const onConfirmEdit = () => {
-    axios.put(`${url}/api/menu-items`, {...editMenuItemForm, item: editMenuItemForm.item.trim(), description: editMenuItemForm.description.trim(), features:[...editFeaturesForm]})
-    .then(res => {
-      setMenuItems(res.data.newMenuItems);
-    })
-    setEditMenuItemForm({id:"", groupId:"", item:"", price:"", description:"", image:""});
-    setEditFeaturesForm([]);
-  }
-
-  const closeModal = () => {
-    setModalDeleteIsOpen(false);
-    setModalEditIsOpen(false);
-    setModalAddIsOpen(false);
-  }
+  } */
 
   return (
     <div className="store-setting-page">
       <Modal
-        isOpen={modalDeleteIsOpen || modalEditIsOpen || modalAddIsOpen}
+        isOpen={modalAddIsOpen}
         onRequestClose={closeModal}
         appElement={document.getElementById('root')}
         className="modal"
         shouldCloseOnOverlayClick={false}
       >
         {modalAddIsOpen && <ConfirmAddModal onClose={closeModal} msg={msg} onConfirmAdd={onConfirmAdd}/>}
-        {modalEditIsOpen && <ConfirmEditModal onClose={closeModal} msg={msg} onConfirmEdit={onConfirmEdit}/>}
       </Modal>
       <div className="setting-data">
         <span className="title">Store Info</span>
@@ -230,7 +198,7 @@ const MenuItemDashboard = ({setMenuItems, storeInfo, setStoreInfo}) => {
           <div className="input-group">
             <span>Tel: </span>    
             <CssTextField
-              required
+              // required
               id="tel"
               name="tel"
               value={infoForm.tel}
@@ -295,11 +263,9 @@ const MenuItemDashboard = ({setMenuItems, storeInfo, setStoreInfo}) => {
               <FormHelperText style={{'color': 'red'}}>{errorMsg}</FormHelperText>
             }
           </div>
-
-          <div className="error-msg">{errorMsgAdd}</div>
           <div className="buttons">
             <button type="button" className="btn-cancel" onClick={() => onCancelSave()}>Cancel</button>
-            <button type="submit" className="btn-save">Save</button>
+            <button type="submit" className="btn-save">Update</button>
           </div>
         </form>
       </div>
