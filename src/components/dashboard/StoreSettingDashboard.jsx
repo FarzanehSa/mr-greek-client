@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect, useRef} from "react";
+import { useContext, useState, useEffect} from "react";
 import axios from "axios";
 import Modal from 'react-modal';
 
@@ -65,7 +65,7 @@ const CssSelect = styled(Select)({
   }
 });
 
-const MenuItemDashboard = ({setMenuItems, storeInfo, setStoreInfo}) => {
+const MenuItemDashboard = ({storeInfo, setStoreInfo, slides, setSlides}) => {
 
   const { url } = useContext(GeneralContext);
 
@@ -73,10 +73,11 @@ const MenuItemDashboard = ({setMenuItems, storeInfo, setStoreInfo}) => {
 
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
-  const inputRef = useRef(null);
 
   const [modalAddIsOpen, setModalAddIsOpen] = useState(false);
   const [msg, setMsg] = useState("");
+
+  console.log(slides);
 
   // 🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻
   useEffect(() => {
@@ -107,17 +108,59 @@ const MenuItemDashboard = ({setMenuItems, storeInfo, setStoreInfo}) => {
     setLoading(false);
     setErrorMsg("");
   }
+
+  const uploadSlide = async e => {
+    const name = e.target.name;
+    const files = e.target.files;
+    const data = new FormData();
+    data.append('file', files[0]);
+    data.append('upload_preset', 'Mr.Greek.Upload');
+    
+    setLoading(true);
+    
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
+    {
+      method: 'post',
+      body: data
+    })
+    
+    const file = await res.json()
+    if (file.secure_url) {
+      const x = [...slides];
+      x.push(`${file.secure_url}`);
+      setSlides([...x]);
+    } else {
+      // setInfoForm({ ...infoForm});
+    }
+    setLoading(false);
+    setErrorMsg("");
+  }
   
   const deleteImage = (e) => {
-    const name = e.currentTarget.id;
-    setInfoForm({ ...infoForm, [name]: "" });
-    inputRef.current.value = null;
+    setInfoForm({ ...infoForm, logo: "" });
+  }
+
+  const deleteSlide = (e) => {
+    const index = Number(e.currentTarget.id);
+    const newSlides = slides.filter((s, i) => {
+      console.log(index);
+      console.log(i);
+      return i !== index;
+    });
+    console.log(newSlides);
+    setSlides([...newSlides])
+    // const name = e.currentTarget.id;
+    // setInfoForm({ ...infoForm, [name]: "" });
   }
 
   const onSave = (event) => {
     event.preventDefault();
     setMsg(`Are you ready to add update store info?`);
     setModalAddIsOpen(true);
+  }
+
+  const onAddSlide = (event) => {
+
   }
 
   const onCancelSave = () => {
@@ -238,12 +281,71 @@ const MenuItemDashboard = ({setMenuItems, storeInfo, setStoreInfo}) => {
               name="logo"
               accept={'image/*'} 
               onChange={uploadImage}
-              ref={inputRef}
             />
             <div className='loading-image-sign'>
               {loading && <CircularProgress style={{'color': 'LightSeaGreen'}}/>}
             </div>
             {infoForm.logo &&
+              <div className='img-preview-part'>
+                <div className='img-preview'>
+                  <img
+                    src={infoForm.logo}
+                    alt="logo"
+                    width="100"
+                    height="100"
+                    className="img-prev"
+                  />
+                </div>
+                <div onClick={deleteImage}>
+                  <FontAwesomeIcon icon="fa-solid fa-trash-can" className='erase-image'/>
+                </div>
+              </div>
+            }
+            {errorMsg && 
+              <FormHelperText style={{'color': 'red'}}>{errorMsg}</FormHelperText>
+            }
+          </div>
+          <div className="buttons">
+            <button type="button" className="btn-cancel" onClick={() => onCancelSave()}>Cancel</button>
+            <button type="submit" className="btn-save">Update</button>
+          </div>
+        </form>
+
+        <div className="show-slides-part">
+          {slides.map((src, index) => {
+            return(
+              <div className="show-slide-row">
+                <span className="slide-num">Slide {index} :</span>
+                <img src={src} alt={`slide ${index + 1}`} key={index} className="slide-preview"/>
+                <div onClick={deleteSlide} id={index}>
+                  <FontAwesomeIcon icon="fa-solid fa-trash-can" className='erase-image'/>
+                </div>
+              </div>
+              )
+            })}
+        </div>
+
+
+        <form onSubmit={onAddSlide} className="setting-form">
+
+
+
+          <div className='image-select'>
+            <label htmlFor="slide" className="custom-file-upload">
+              Add Slide
+            </label>
+            <input
+              id="slide" 
+              type="file"
+              name="slide"
+              accept={'image/*'} 
+              onChange={uploadSlide}
+              // ref={inputRef}
+            />
+            {/* <div className='loading-image-sign'>
+              {loading && <CircularProgress style={{'color': 'LightSeaGreen'}}/>}
+            </div> */}
+            {/* {infoForm.logo &&
               <div className='img-preview-part'>
                 <div className='img-preview'>
                   <img
@@ -261,13 +363,15 @@ const MenuItemDashboard = ({setMenuItems, storeInfo, setStoreInfo}) => {
             }
             {errorMsg && 
               <FormHelperText style={{'color': 'red'}}>{errorMsg}</FormHelperText>
-            }
+            } */}
           </div>
-          <div className="buttons">
+          {/* <div className="buttons">
             <button type="button" className="btn-cancel" onClick={() => onCancelSave()}>Cancel</button>
             <button type="submit" className="btn-save">Update</button>
-          </div>
+          </div> */}
         </form>
+
+
       </div>
     </div>
   )

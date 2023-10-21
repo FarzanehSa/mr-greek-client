@@ -13,7 +13,7 @@
     align-items: flex-start;
     padding-bottom: 1em;
     margin-bottom: 1em;
-    border-bottom: 1px solid gray;
+   
     
     .title {
       font-size: 1.2em;
@@ -28,6 +28,7 @@
       flex-direction: column;
       justify-content: flex-start;
       align-items: flex-start;
+      border-bottom: 1px solid gray;
 
       .input-group {
         display: flex;
@@ -134,6 +135,33 @@
       .text-name-price, .text-group, .text-description {
         margin-bottom: 1.5em;
       }
+    }
+
+    .show-slides-part {
+      display: flex;
+      flex-direction: column;
+      margin-top: 2rem;
+
+      .show-slide-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0.5rem 2rem;
+
+        .slide-num {
+          width: 80px;
+          font-weight: 600;
+          color: LightSeaGreen;
+        }
+
+        .slide-preview {
+          height: 100px;
+          width: 200px;
+          border: 1px solid grey;
+          margin-right: 1rem;
+        }
+      }
+
     }
 
     .buttons {

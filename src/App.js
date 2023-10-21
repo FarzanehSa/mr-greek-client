@@ -29,6 +29,7 @@ function App() {
   const [allFeatures, setAllFeatures] = useState([]);
 
   const [storeInfo, setStoreInfo] = useState({storename:"", logo:"", address:"", tel:""});
+  const [slides, setSlides] = useState([]);
 
   console.log("📗", menuGroups);
   console.log("🥙", menuItems);
@@ -98,7 +99,7 @@ function App() {
 
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/dashboard/store-setting' element={<StoreSettingDashboard setMenuGroups={setMenuGroups} setMenuItems={setMenuItems} storeInfo={storeInfo} setStoreInfo={setStoreInfo}/>} />
+          <Route path='/dashboard/store-setting' element={<StoreSettingDashboard storeInfo={storeInfo} setStoreInfo={setStoreInfo} slides={slides} setSlides={setSlides}/>} />
           <Route path='/dashboard/menu-group' element={<MenuGroupDashboard setMenuGroups={setMenuGroups}/>} />
           <Route path='/dashboard/menu-item' element={<MenuItemDashboard setMenuItems={setMenuItems} allFeatures={allFeatures}/>}/>
         </Routes>
