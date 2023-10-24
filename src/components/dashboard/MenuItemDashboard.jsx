@@ -15,9 +15,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { cyan } from '@mui/material/colors';
 
 import GeneralContext from "../../contexts/GeneralContext";
-import ConfirmAddModal from "./ConfirmAddModal";
-import ConfirmDeleteModal from "./ConfirmDeleteModal";
-import ConfirmEditModal from "./ConfirmEditModal";
+import ConfirmModal from "./ConfirmModal";
 import './MenuItemDashboard.scss';
 
 const ITEM_HEIGHT = 48;
@@ -339,7 +337,7 @@ const MenuItemDashboard = ({setMenuItems, allFeatures}) => {
         </div>
         <div>
           <button className="btn-edit" onClick={() => onReqEdit(row.id, row.groupid, row.item, row.price / 100, row.description, row.image, row.features)}><FontAwesomeIcon icon="fa-solid fa-pencil" /></button>
-          <button className="btn-delete" onClick={() => onDelete(row.id, row.name)}><FontAwesomeIcon icon="fa-solid fa-trash" /></button>
+          <button className="btn-delete" onClick={() => onDelete(row.id, row.item)}><FontAwesomeIcon icon="fa-solid fa-trash" /></button>
         </div>
       </div>
     )
@@ -377,9 +375,9 @@ const MenuItemDashboard = ({setMenuItems, allFeatures}) => {
         className="modal"
         shouldCloseOnOverlayClick={false}
       >
-        {modalAddIsOpen && <ConfirmAddModal onClose={closeModal} msg={msg} onConfirmAdd={onConfirmAdd}/>}
-        {modalDeleteIsOpen && <ConfirmDeleteModal onClose={closeModal} msg={msg} onConfirmDelete={onConfirmDelete}/>}
-        {modalEditIsOpen && <ConfirmEditModal onClose={closeModal} msg={msg} onConfirmEdit={onConfirmEdit}/>}
+        {modalAddIsOpen && <ConfirmModal onClose={closeModal} msg={msg} onConfirm={onConfirmAdd}/>}
+        {modalDeleteIsOpen && <ConfirmModal onClose={closeModal} msg={msg} onConfirm={onConfirmDelete}/>}
+        {modalEditIsOpen && <ConfirmModal onClose={closeModal} msg={msg} onConfirm={onConfirmEdit}/>}
       </Modal>
       <div className="add-menu-item-part">
         <span className="title">Add new item</span>

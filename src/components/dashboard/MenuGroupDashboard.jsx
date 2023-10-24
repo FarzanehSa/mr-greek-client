@@ -7,9 +7,7 @@ import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
 
 import GeneralContext from "../../contexts/GeneralContext";
-import ConfirmAddModal from "./ConfirmAddModal";
-import ConfirmDeleteModal from "./ConfirmDeleteModal";
-import ConfirmEditModal from "./ConfirmEditModal";
+import ConfirmModal from "./ConfirmModal";
 import './MenuGroupDashboard.scss';
 
 const CssTextField = styled(TextField)({
@@ -172,9 +170,9 @@ const MenuGroupDashboard = ({setMenuGroups}) => {
         className="modal"
         shouldCloseOnOverlayClick={false}
       >
-        {modalAddIsOpen && <ConfirmAddModal onClose={closeModal} msg={msg} onConfirmAdd={onConfirmAdd}/>}
-        {modalDeleteIsOpen && <ConfirmDeleteModal onClose={closeModal} msg={msg} onConfirmDelete={onConfirmDelete}/>}
-        {modalEditIsOpen && <ConfirmEditModal onClose={closeModal} msg={msg} onConfirmEdit={onConfirmEdit}/>}
+        {modalAddIsOpen && <ConfirmModal onClose={closeModal} msg={msg} onConfirm={onConfirmAdd}/>}
+        {modalDeleteIsOpen && <ConfirmModal onClose={closeModal} msg={msg} onConfirm={onConfirmDelete}/>}
+        {modalEditIsOpen && <ConfirmModal onClose={closeModal} msg={msg} onConfirm={onConfirmEdit}/>}
       </Modal>
       <div className="add-group-part">
         <span className="title">Add new menu group</span>
