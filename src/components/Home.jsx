@@ -3,31 +3,23 @@ import "./Home.scss";
 
 import ImageSlider from "./side/ImageSlider";
 
-const Home = () => {
+const Home = ({slides}) => {
 
 
-  const imageSlides = [
-    {
-      src:"../donair-background-1.jpg",
-      alt:"mainImage"
-    },
-    {
-      src:"../donair-background-2.jpg",
-      alt:"mainImage"
-    },
-    {
-      src:"../donair-background-3.jpg",
-      alt:"mainImage"
-    },
-    {
-      src:"../donair-background-4.jpg",
-      alt:"mainImage"
-    },
-  ]
+  const [imageSlides, setImageSlides] = useState([])
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, []);
+
+  useEffect(() => {
+    setImageSlides(slides.map((row, index) => {
+      return ({
+        src: row,
+        alt: `Slide ${index + 1}`
+      });
+    }))
+  }, [slides]);
   
 
   return (
