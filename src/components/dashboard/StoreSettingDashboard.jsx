@@ -9,15 +9,14 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputAdornment from '@mui/material/InputAdornment';
 import CircularProgress from '@mui/material/CircularProgress';
+import LinearProgress from '@mui/material/LinearProgress';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { cyan } from '@mui/material/colors';
 
 import GeneralContext from "../../contexts/GeneralContext";
-import ConfirmAddModal from "./ConfirmAddModal";
-import ConfirmDeleteModal from "./ConfirmDeleteModal";
-import ConfirmEditModal from "./ConfirmEditModal";
+import ConfirmModal from "./ConfirmModal";
 import './StoreSettingDashboard.scss';
 
 const ITEM_HEIGHT = 48;
@@ -70,21 +69,24 @@ const MenuItemDashboard = ({storeInfo, setStoreInfo, slides, setSlides}) => {
   const { url } = useContext(GeneralContext);
 
   const [infoForm, setInfoForm] = useState({...storeInfo});
+  const [slideForm, setSlideForm] = useState([...slides]);
 
   const [loading, setLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
+  const [loadingSlide, setLoadingSlide] = useState(false);
 
-  const [modalAddIsOpen, setModalAddIsOpen] = useState(false);
+  const [modalInfoIsOpen, setModalInfoIsOpen] = useState(false);
+  const [modalSlideIsOpen, setModalSlideIsOpen] = useState(false);
   const [msg, setMsg] = useState("");
 
-  console.log(slides);
-
-  // 🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻
   useEffect(() => {
-    setInfoForm({...storeInfo})
+    setInfoForm({...storeInfo});
   },[storeInfo]);
+
+  useEffect(() => {
+    setSlideForm([...slides]);
+  },[slides]);
   
-  const uploadImage = async e => {
+  const uploadLogo = async e => {
     const name = e.target.name;
     const files = e.target.files;
     const data = new FormData();
@@ -106,7 +108,6 @@ const MenuItemDashboard = ({storeInfo, setStoreInfo, slides, setSlides}) => {
       setInfoForm({ ...infoForm});
     }
     setLoading(false);
-    setErrorMsg("");
   }
 
   const uploadSlide = async e => {
@@ -116,7 +117,7 @@ const MenuItemDashboard = ({storeInfo, setStoreInfo, slides, setSlides}) => {
     data.append('file', files[0]);
     data.append('upload_preset', 'Mr.Greek.Upload');
     
-    setLoading(true);
+    setLoadingSlide(true);
     
     const res = await fetch(`https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
     {
@@ -126,104 +127,97 @@ const MenuItemDashboard = ({storeInfo, setStoreInfo, slides, setSlides}) => {
     
     const file = await res.json()
     if (file.secure_url) {
-      const x = [...slides];
+      const x = [...slideForm];
       x.push(`${file.secure_url}`);
-      setSlides([...x]);
-    } else {
-      // setInfoForm({ ...infoForm});
+      setSlideForm([...x]);
     }
-    setLoading(false);
-    setErrorMsg("");
+    setLoadingSlide(false);
   }
   
-  const deleteImage = (e) => {
+  const deleteLogo = (e) => {
     setInfoForm({ ...infoForm, logo: "" });
   }
 
   const deleteSlide = (e) => {
     const index = Number(e.currentTarget.id);
-    const newSlides = slides.filter((s, i) => {
-      console.log(index);
-      console.log(i);
+    const newSlides = slideForm.filter((s, i) => {
       return i !== index;
     });
-    console.log(newSlides);
-    setSlides([...newSlides])
-    // const name = e.currentTarget.id;
-    // setInfoForm({ ...infoForm, [name]: "" });
+    setSlideForm([...newSlides]);
   }
 
-  const onSave = (event) => {
+  const onUpdateInfo = (event) => {
     event.preventDefault();
-    setMsg(`Are you ready to add update store info?`);
-    setModalAddIsOpen(true);
+    setMsg(`Are you ready to update store info?`);
+    setModalInfoIsOpen(true);
   }
 
-  const onAddSlide = (event) => {
-
+  const onUpdateSlides = (event) => {
+    event.preventDefault();
+    setMsg(`Are you ready to update slides?`);
+    setModalSlideIsOpen(true);
   }
 
-  const onCancelSave = () => {
+  const onCancelUpdateInfo = () => {
     setInfoForm({...storeInfo});
   }
 
-  const handleChangeSave = (event) => {
+  const onCancelUpdateSlides = () => {
+    setSlideForm([...slides]);
+  }
+
+  const handleChangeUpdateInfo = (event) => {
     const {name, value} = event.target;
     setInfoForm({...infoForm, [name]: value});
   }
 
-  const onConfirmAdd = () => {
+  const onConfirmUpdateInfo = () => {
     axios.put(`${url}/api/store-settings`, {...infoForm})
     .then(res => {
       setStoreInfo(res.data.settings[0]);
     })
   }
 
-  const closeModal = () => {
-    setModalAddIsOpen(false);
-  }
-  
-  // 🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻🔺🔻
-
- /*  const changeImage = async e => {
-    const name = e.target.name;
-    const files = e.target.files;
-    const data = new FormData();
-    data.append('file', files[0]);
-    data.append('upload_preset', 'Mr.Greek.Upload');
-
-    setLoadingInEdit(true);
-
-    const res = await fetch(`https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
-    {
-      method: 'post',
-      body: data
+  const onConfirmUpdateSlide = () => {
+    axios.post(`${url}/api/store-settings`, {slides: slideForm})
+    .then(res => {
+      setSlides(res.data.newSlides);
     })
+  }
 
-    const file = await res.json()
-    if (file.secure_url) {
-      setEditMenuItemForm({ ...editMenuItemForm, [name]: `${file.secure_url}` })
+  const closeModal = () => {
+    setModalInfoIsOpen(false);
+    setModalSlideIsOpen(false);
+  }
+
+  const equal = (arr1, arr2) => {
+    if (arr1.length !== arr2.length) {
+      return false;
     } else {
-      setEditMenuItemForm({ ...editMenuItemForm})
+      for (let i = 1; i < arr1.length; i++) {
+        if (arr1[i] !== arr2[i]) {
+          return false
+        }
+      }
+      return true;
     }
-    setLoadingInEdit(false);
-    setErrorMsgEdit("");
-  } */
+  }
 
   return (
     <div className="store-setting-page">
       <Modal
-        isOpen={modalAddIsOpen}
+        isOpen={modalInfoIsOpen || modalSlideIsOpen}
         onRequestClose={closeModal}
         appElement={document.getElementById('root')}
         className="modal"
         shouldCloseOnOverlayClick={false}
       >
-        {modalAddIsOpen && <ConfirmAddModal onClose={closeModal} msg={msg} onConfirmAdd={onConfirmAdd}/>}
+        {modalInfoIsOpen && <ConfirmModal onClose={closeModal} msg={msg} onConfirm={onConfirmUpdateInfo}/>}
+        {modalSlideIsOpen && <ConfirmModal onClose={closeModal} msg={msg} onConfirm={onConfirmUpdateSlide}/>}
       </Modal>
-      <div className="setting-data">
+      <div className="setting-info">
         <span className="title">Store Info</span>
-        <form onSubmit={onSave} className="setting-form">
+        <form onSubmit={onUpdateInfo} className="setting-form">
           <div className="input-group">
             <span>Store Name: </span>    
             <CssTextField
@@ -232,7 +226,7 @@ const MenuItemDashboard = ({storeInfo, setStoreInfo, slides, setSlides}) => {
               name="storename"
               // value={addMenuItemForm.item}
               value={infoForm.storename}
-              onChange={handleChangeSave}
+              onChange={handleChangeUpdateInfo}
               variant="outlined"
               size="small"
               className="input-name"
@@ -245,10 +239,10 @@ const MenuItemDashboard = ({storeInfo, setStoreInfo, slides, setSlides}) => {
               id="tel"
               name="tel"
               value={infoForm.tel}
-              onChange={handleChangeSave}
+              onChange={handleChangeUpdateInfo}
               variant="outlined"
               size="small"
-              className="input-price"
+              className="input-tel"
             />
           </div>
           <div className="description">
@@ -262,7 +256,7 @@ const MenuItemDashboard = ({storeInfo, setStoreInfo, slides, setSlides}) => {
                 maxRows={2}
                 minRows={1}
                 value={infoForm.address}
-                onChange={handleChangeSave}
+                onChange={handleChangeUpdateInfo}
                 variant="outlined"
                 size="small"
                 // margin="normal"
@@ -280,7 +274,7 @@ const MenuItemDashboard = ({storeInfo, setStoreInfo, slides, setSlides}) => {
               type="file"
               name="logo"
               accept={'image/*'} 
-              onChange={uploadImage}
+              onChange={uploadLogo}
             />
             <div className='loading-image-sign'>
               {loading && <CircularProgress style={{'color': 'LightSeaGreen'}}/>}
@@ -296,41 +290,22 @@ const MenuItemDashboard = ({storeInfo, setStoreInfo, slides, setSlides}) => {
                     className="img-prev"
                   />
                 </div>
-                <div onClick={deleteImage}>
+                <div onClick={deleteLogo}>
                   <FontAwesomeIcon icon="fa-solid fa-trash-can" className='erase-image'/>
                 </div>
               </div>
-            }
-            {errorMsg && 
-              <FormHelperText style={{'color': 'red'}}>{errorMsg}</FormHelperText>
             }
           </div>
           <div className="buttons">
-            <button type="button" className="btn-cancel" onClick={() => onCancelSave()}>Cancel</button>
+            <button type="button" className="btn-cancel" onClick={() => onCancelUpdateInfo()}>Cancel</button>
             <button type="submit" className="btn-save">Update</button>
           </div>
         </form>
-
-        <div className="show-slides-part">
-          {slides.map((src, index) => {
-            return(
-              <div className="show-slide-row">
-                <span className="slide-num">Slide {index} :</span>
-                <img src={src} alt={`slide ${index + 1}`} key={index} className="slide-preview"/>
-                <div onClick={deleteSlide} id={index}>
-                  <FontAwesomeIcon icon="fa-solid fa-trash-can" className='erase-image'/>
-                </div>
-              </div>
-              )
-            })}
-        </div>
-
-
-        <form onSubmit={onAddSlide} className="setting-form">
-
-
-
-          <div className='image-select'>
+      </div>
+      <div className="setting-slides">
+        <span className="title">Home Page Slides:</span>
+        <form onSubmit={onUpdateSlides} className="slide-form">
+          <div className='slide-select'>
             <label htmlFor="slide" className="custom-file-upload">
               Add Slide
             </label>
@@ -340,38 +315,44 @@ const MenuItemDashboard = ({storeInfo, setStoreInfo, slides, setSlides}) => {
               name="slide"
               accept={'image/*'} 
               onChange={uploadSlide}
-              // ref={inputRef}
             />
-            {/* <div className='loading-image-sign'>
-              {loading && <CircularProgress style={{'color': 'LightSeaGreen'}}/>}
-            </div> */}
-            {/* {infoForm.logo &&
-              <div className='img-preview-part'>
-                <div className='img-preview'>
-                  <img
-                    src={infoForm.logo}
-                    alt="logo"
-                    width="100"
-                    height="100"
-                    className="img-prev"
-                  />
-                </div>
-                <div id='image' onClick={deleteImage}>
-                  <FontAwesomeIcon icon="fa-solid fa-trash-can" className='erase-image'/>
-                </div>
-              </div>
-            }
-            {errorMsg && 
-              <FormHelperText style={{'color': 'red'}}>{errorMsg}</FormHelperText>
-            } */}
+            <div className='loading-image-sign'>
+              {loadingSlide && <LinearProgress sx={{
+                  backgroundColor: 'PaleTurquoise',
+                  '& .MuiLinearProgress-bar': {
+                    backgroundColor: 'LightSeaGreen'
+                  }
+                }}/>
+              }
+            </div>
           </div>
-          {/* <div className="buttons">
-            <button type="button" className="btn-cancel" onClick={() => onCancelSave()}>Cancel</button>
+          {slideForm.length ? 
+            <div className="show-slides-part">
+            {slideForm.map((src, index) => {
+              return(
+                <div className="show-slide-row" key={index}>
+                  <span className="slide-num">Slide {index + 1} :</span>
+                  <img src={src} alt={`slide ${index + 1}`} key={index} className="slide-preview"/>
+                  <div onClick={deleteSlide} id={index}>
+                    <FontAwesomeIcon icon="fa-solid fa-trash-can" className='erase-image'/>
+                  </div>
+                </div>
+                )
+              })}
+            </div> : 
+            <span className="slide-text">There is no slide!</span>
+          }
+          <div className="buttons">
+            <button 
+              type="button"
+              className={ equal(slides, slideForm) ? "btn-cancel deactive" : "btn-cancel"}
+              onClick={() => onCancelUpdateSlides()} 
+            >
+              Cancel
+            </button>
             <button type="submit" className="btn-save">Update</button>
-          </div> */}
+          </div>
         </form>
-
-
       </div>
     </div>
   )
