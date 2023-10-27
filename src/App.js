@@ -61,6 +61,7 @@ function App() {
         setMenuItems(prev => r2.data.items);
         setAllFeatures(prev => r3.data.features);
         setStoreInfo(prev => r4.data.settings[0]);
+        setSlides(prev => r4.data.newSlides);
       });
     }, []); // eslint-disable-line
 
@@ -92,8 +93,8 @@ function App() {
     <div className="App">
       <GeneralContext.Provider value={{ user, storeInfo, url, menuGroups, menuItems }}>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/*" element={<Home />} />
+          <Route path="/" element={<Home slides={slides}/>} />
+          <Route path="/*" element={<Home slides={slides}/>} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/menu/:id" element={<FoodItem allFeatures={allFeatures}/>} />
 
