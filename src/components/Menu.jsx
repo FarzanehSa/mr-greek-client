@@ -9,7 +9,6 @@ const Menu = () => {
   const { menuGroups, menuItems } = useContext(GeneralContext);
   const [selectedGroup, setSelectedGroup] = useState(-1);
 
-
   const menuDivs = menuGroups.map((e, i) => {
     return (
       <div key={i} className={i === selectedGroup ? "menu-div menu-div-select" : "menu-div"} onClick={() => {setSelectedGroup(i)}}>{e.group}</div>
@@ -35,10 +34,7 @@ const Menu = () => {
         </NavLink>
       </div>
     )
-
-  })
-
-  console.log(showItems);
+  });
 
   return (
     <div className="menu">
