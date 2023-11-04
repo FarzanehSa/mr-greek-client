@@ -56,10 +56,12 @@
 
       .feature-image-part {
         .feature-image {
-          height: 30px;
-          width: 30px;
-          margin: 0.1rem;
-          border: 1px solid red;
+          border: 1px solid black;
+          height: 35px;
+          width: 35px;
+          object-fit:contain;
+          margin: 0.2rem;
+          padding: 0.2rem;
           border-radius: 100%;
         }
       }
