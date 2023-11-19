@@ -9,6 +9,7 @@ import { styled } from '@mui/material/styles';
 import GeneralContext from "../../contexts/GeneralContext";
 import ConfirmModal from "./ConfirmModal";
 import './MenuGroupDashboard.scss';
+import {admin_color} from "./variable.js";
 
 const CssTextField = styled(TextField)({
   '& label.Mui-focused': {
@@ -22,10 +23,10 @@ const CssTextField = styled(TextField)({
       borderColor: 'LightGray',
     },
     '&:hover fieldset': {
-      borderColor: 'Goldenrod',
+      borderColor: 'DarkGray',
     },
     '&.Mui-focused fieldset': {
-      borderColor: 'LightSeaGreen',
+      borderColor: admin_color,
     },
   },
 });

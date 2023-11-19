@@ -103,7 +103,7 @@
         .erase-image {
           cursor: pointer;
           &:hover {
-            color: LightSeaGreen;
+            color: $admin-keys-color;
           }
         }
       }
@@ -118,7 +118,7 @@
 
         .image-field {
           margin-right: 1em;
-          color: LightSeaGreen;
+          color: $admin-keys-color;
         }
       }
 
@@ -165,10 +165,10 @@
     }
 
     .btn-save, .btn-cancel {
-      border: 0.2em solid LightSeaGreen;
+      border: 0.2em solid $admin-keys-color;
       border-radius: 10px;
       width: 120px;
-      background-color: LightSeaGreen ;
+      background-color: $admin-keys-color ;
       color: white;
       cursor: pointer;
       font-size: 1.1em;
@@ -180,9 +180,9 @@
       &:hover, &:focus {
         outline: none;
         // background-color: #eb6663;
-        border:0.2em solid PaleTurquoise;
+        border:0.2em solid $admin-keys-color-sec;
         border-radius: 10px;
-        color: PaleTurquoise;
+        color: $admin-keys-color-sec;
       }
     }
 
@@ -195,12 +195,12 @@
   
       &:hover, &:focus {
         outline: none;
-        color: LightSeaGreen;
+        color: $admin-keys-color;
       }
     }
 
     .name-field {
-      color: LightSeaGreen;
+      color: $admin-keys-color;
     }
   }
 
@@ -242,17 +242,16 @@ input[type="file"] {
 }
 
 .custom-file-upload {
-  border: 1px solid LightSeaGreen;
+  border: 1px solid $admin-keys-color;
   border-radius: 5px;
   display: inline-block;
   padding: 6px 12px;
-  color: LightSeaGreen;
+  color: $admin-keys-color;
   cursor: pointer;
   white-space: noWrap;
 
   &:hover {
-    // border: 1px solid LightSeaGreen;
-    background-color: LightSeaGreen;
+    background-color: $admin-keys-color;
     color: white;
   }
 }
@@ -407,10 +406,10 @@ input[type="file"] {
       }
   
       .btn-save, .btn-cancel {
-        border: 0.2em solid LightSeaGreen;
+        border: 0.2em solid $admin-keys-color;
         border-radius: 10px;
         width: 100px;
-        background-color: LightSeaGreen ;
+        background-color: $admin-keys-color ;
         color: white;
         cursor: pointer;
         font-size: 1em;
@@ -422,9 +421,9 @@ input[type="file"] {
         &:hover, &:focus {
           outline: none;
           // background-color: #eb6663;
-          border:0.2em solid PaleTurquoise;
+          border:0.2em solid $admin-keys-color-sec;
           border-radius: 10px;
-          color: PaleTurquoise;
+          color: $admin-keys-color-sec;
         }
       }
     }
@@ -450,18 +449,17 @@ input[type="file"] {
   }
 
   .custom-file-upload {
-    border: 1px solid LightSeaGreen;
+    border: 1px solid $admin-keys-color;
     border-radius: 5px;
     font-size: 0.8em;
     display: inline-block;
     padding: 12px 6px;
-    color: LightSeaGreen;
+    color: $admin-keys-color;
     cursor: pointer;
     white-space: Wrap;
   
     &:hover {
-      // border: 1px solid LightSeaGreen;
-      background-color: LightSeaGreen;
+      background-color: $admin-keys-color;
       color: white;
     }
   }
