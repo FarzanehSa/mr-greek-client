@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import GeneralContext from "../contexts/GeneralContext";
 import './Navbar.scss';
@@ -13,6 +12,10 @@ const Navbar = ({setUser}) => {
   const {storeInfo, user } = useContext(GeneralContext);
   const [showBar, setShowBar] = useState(false);
   const [showSideNav, setShowSideNav] = useState(false);
+
+  useEffect(() => {
+    if (window.innerWidth < 801) setShowSideNav(true); 
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {

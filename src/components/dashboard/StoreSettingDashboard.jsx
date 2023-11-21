@@ -5,30 +5,13 @@ import Modal from 'react-modal';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import InputAdornment from '@mui/material/InputAdornment';
 import CircularProgress from '@mui/material/CircularProgress';
 import LinearProgress from '@mui/material/LinearProgress';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import { cyan } from '@mui/material/colors';
 
 import GeneralContext from "../../contexts/GeneralContext";
 import ConfirmModal from "./ConfirmModal";
 import './StoreSettingDashboard.scss';
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 7 + ITEM_PADDING_TOP,
-      // width: 250,
-    },
-  },
-};
+import {admin_color, admin_color_sec} from "./variable.js";
 
 const CssTextField = styled(TextField)({
   '& label.Mui-focused': {
@@ -42,26 +25,12 @@ const CssTextField = styled(TextField)({
       borderColor: 'LightGray',
     },
     '&:hover fieldset': {
-      borderColor: 'MediumPurple',
+      borderColor: 'DarkGray',
     },
     '&.Mui-focused fieldset': {
-      borderColor: 'LightSeaGreen',
+      borderColor: admin_color,
     },
   },
-});
-
-const CssSelect = styled(Select)({
-  "&.MuiOutlinedInput-root": {
-    "& fieldset": {
-      borderColor: "LightGray"
-    },
-    "&:hover fieldset": {
-      borderColor: "MediumPurple"
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: "LightSeaGreen"
-    },
-  }
 });
 
 const MenuItemDashboard = ({storeInfo, setStoreInfo, slides, setSlides}) => {
@@ -111,7 +80,6 @@ const MenuItemDashboard = ({storeInfo, setStoreInfo, slides, setSlides}) => {
   }
 
   const uploadSlide = async e => {
-    const name = e.target.name;
     const files = e.target.files;
     const data = new FormData();
     data.append('file', files[0]);
@@ -277,7 +245,7 @@ const MenuItemDashboard = ({storeInfo, setStoreInfo, slides, setSlides}) => {
               onChange={uploadLogo}
             />
             <div className='loading-image-sign'>
-              {loading && <CircularProgress style={{'color': 'LightSeaGreen'}}/>}
+              {loading && <CircularProgress style={{'color': admin_color}}/>}
             </div>
             {infoForm.logo &&
               <div className='img-preview-part'>
@@ -318,9 +286,9 @@ const MenuItemDashboard = ({storeInfo, setStoreInfo, slides, setSlides}) => {
             />
             <div className='loading-image-sign'>
               {loadingSlide && <LinearProgress sx={{
-                  backgroundColor: 'PaleTurquoise',
+                  backgroundColor: admin_color_sec,
                   '& .MuiLinearProgress-bar': {
-                    backgroundColor: 'LightSeaGreen'
+                    backgroundColor: admin_color
                   }
                 }}/>
               }
@@ -332,9 +300,11 @@ const MenuItemDashboard = ({storeInfo, setStoreInfo, slides, setSlides}) => {
               return(
                 <div className="show-slide-row" key={index}>
                   <span className="slide-num">Slide {index + 1} :</span>
-                  <img src={src} alt={`slide ${index + 1}`} key={index} className="slide-preview"/>
-                  <div onClick={deleteSlide} id={index}>
-                    <FontAwesomeIcon icon="fa-solid fa-trash-can" className='erase-image'/>
+                  <div className="img-del">
+                    <img src={src} alt={`slide ${index + 1}`} key={index} className="slide-preview"/>
+                    <div onClick={deleteSlide} id={index}>
+                      <FontAwesomeIcon icon="fa-solid fa-trash-can" className='erase-image'/>
+                    </div>
                   </div>
                 </div>
                 )

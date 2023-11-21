@@ -3,7 +3,7 @@
 .n-wrapper {
   width: 100%;
   height: 14vh;
-  background-color: white;
+  background-color: $client-nav-color;
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -26,7 +26,7 @@
       
       .logo-name {
         font-family: $font-family-logo;
-        color: tomato;
+        color: $client-keys-color;
         font-size: 2em;
       }
 
@@ -47,27 +47,33 @@
       display: flex;
       // margin-right: 2rem;
       &:focus {
-        outline: 5px solid green;
+        // outline: 5px solid green;
         box-shadow: none;
       }
     
       li {
         margin-left: 1rem;
+        color: red;
 
         .nav-buttons {
           font-size: 1.2rem;
           border: 3px solid transparent;
           background-color: transparent;
-          color: black;
           transition: all 0.7s ease-in-out;
+
+          .navlink {
+            color: $client-nav-text-color;
+            &:hover {
+              color: $client-nav-text-color;
+            }
+          }
 
           &:hover {
             cursor: pointer;
-            color: black;
-            border-bottom: 3px solid tomato;            
+            border-bottom: 3px solid $client-keys-color;            
           }
           &:focus {
-            outline: 2px solid tomato;
+            outline: 2px solid $client-keys-color;
             box-shadow: none;
           }
         }
@@ -107,10 +113,10 @@
           &:hover {
             cursor: pointer;
             color: black;
-            border-bottom: 3px solid tomato;            
+            border-bottom: 3px solid $client-keys-color;            
           }
           &:focus {
-            outline: 2px solid tomato;
+            outline: 2px solid $client-keys-color;
             box-shadow: none;
           }
         }

@@ -1,9 +1,12 @@
+@import "src/styles/variables.scss";
+
 .food-item {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   width: 100vw;
+  height: 100%;
   margin-top: 8rem;
   
   .wave-img {
@@ -11,16 +14,29 @@
     width: 90%;
   }
 
+  .item-not-exist {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 80%;
+    height: 50vh;
+    margin-top: 2rem;
+  }
+
   .item {
     display: flex;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
     width: 80%;
     margin-top: 2rem;
+    height: 100%;
 
-    .left-side {
+    .left-side {  
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
       width: 50%;
-      height: 55vh;
+      height: 100%;
 
       .item-img {
         width: 100% ;

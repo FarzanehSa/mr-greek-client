@@ -12,11 +12,11 @@ import CircularProgress from '@mui/material/CircularProgress';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { cyan } from '@mui/material/colors';
 
 import GeneralContext from "../../contexts/GeneralContext";
 import ConfirmModal from "./ConfirmModal";
 import './MenuItemDashboard.scss';
+import {admin_color} from "./variable.js";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -41,10 +41,10 @@ const CssTextField = styled(TextField)({
       borderColor: 'LightGray',
     },
     '&:hover fieldset': {
-      borderColor: 'MediumPurple',
+      borderColor: 'DarkGray',
     },
     '&.Mui-focused fieldset': {
-      borderColor: 'LightSeaGreen',
+      borderColor: admin_color,
     },
   },
 });
@@ -55,10 +55,10 @@ const CssSelect = styled(Select)({
       borderColor: "LightGray"
     },
     "&:hover fieldset": {
-      borderColor: "MediumPurple"
+      borderColor: "DarkGray"
     },
     "&.Mui-focused fieldset": {
-      borderColor: "LightSeaGreen"
+      borderColor: admin_color
     },
   }
 });
@@ -86,9 +86,6 @@ const MenuItemDashboard = ({setMenuItems, allFeatures}) => {
   const [modalDeleteIsOpen, setModalDeleteIsOpen] = useState(false);
   const [modalEditIsOpen, setModalEditIsOpen] = useState(false);
   const [msg, setMsg] = useState("");
-
-  // console.log(addFeaturesForm);
-  console.log(editFeaturesForm);
 
   useEffect(() => {
     const featuresArr = allFeatures.map(row => {
@@ -353,10 +350,10 @@ const MenuItemDashboard = ({setMenuItems, allFeatures}) => {
           checked={row.select} 
           value={row.id}
           sx={{
-            color: cyan[800],
-            '&.Mui-checked': {
-              color: cyan[600],
-            },
+            color: admin_color,
+            "&.Mui-checked": {
+              color: admin_color
+            }
           }}
         />
       }
@@ -450,7 +447,7 @@ const MenuItemDashboard = ({setMenuItems, allFeatures}) => {
               ref={inputRef}
             />
             <div className='loading-image-sign'>
-              {loading && <CircularProgress style={{'color': 'LightSeaGreen'}}/>}
+              {loading && <CircularProgress style={{'color': admin_color}}/>}
             </div>
             {addMenuItemForm.image &&
               <div className='img-preview-part'>
@@ -600,7 +597,7 @@ const MenuItemDashboard = ({setMenuItems, allFeatures}) => {
                   onChange={changeImage}
                 />
                 <div className='loading-image-sign'>
-                  {loadingInEdit && <CircularProgress style={{'color': 'LightSeaGreen'}}/>}
+                  {loadingInEdit && <CircularProgress style={{'color': admin_color}}/>}
                 </div>
                 {editMenuItemForm.image &&
                   <div className='img-preview-part'>
@@ -633,10 +630,10 @@ const MenuItemDashboard = ({setMenuItems, allFeatures}) => {
                             checked={row.select} 
                             value={row.id}
                             sx={{
-                              color: cyan[800],
-                              '&.Mui-checked': {
-                                color: cyan[600],
-                              },
+                              color: admin_color,
+                              "&.Mui-checked": {
+                                color: admin_color
+                              }
                             }}
                           />
                         }

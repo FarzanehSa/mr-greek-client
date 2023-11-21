@@ -1,3 +1,5 @@
+@import "../styles/variables.scss";
+
 .menu {
   display: flex;
   flex-direction: column;
@@ -28,7 +30,7 @@
     width: 70%;
 
     .menu-div {
-      border: 3px solid tomato;
+      border: 3px solid $client-keys-color;
       padding: 1rem;
       font-size: 1rem;
       margin: 0.1rem;
@@ -37,7 +39,7 @@
         font-size: 1.5rem;
         padding: 0.7rem;
         // border-style: dotted;
-        // background-color: tomato;
+        // background-color: $client-keys-color;
         // color: white;
       }
     }
@@ -89,7 +91,7 @@
       }
 
       &:hover{
-        border: 3px solid tomato;
+        border: 3px solid $client-keys-color;
       }
     }
   }
@@ -150,7 +152,7 @@
       width: 90%;
   
       .menu-div {
-        border: 3px solid tomato;
+        border: 3px solid $client-keys-color;
         padding: 0.8rem;
         font-size: 0.9rem;
         margin: 0.1rem;
@@ -196,7 +198,7 @@
         }
   
         &:hover{
-          border: 3px solid tomato;
+          border: 3px solid $client-keys-color;
         }
       }
   

@@ -15,7 +15,7 @@
   .title {
     width: 600;
     font-size: 1.5rem;
-    color: tomato;
+    color: $client-keys-color;
     text-align: center;
   }
 
@@ -98,11 +98,11 @@
       .c-button {
         padding: 12px 38px;
         margin-bottom: 2rem;
-        border: 2px solid tomato;
+        border: 2px solid $client-keys-color;
         border-radius: 5px;
-        color: black;
+        color: white;
         font-size: 1.1rem;
-        background-color: transparent;
+        background-color: $client-keys-color;
         cursor: pointer;
 
         &:hover {

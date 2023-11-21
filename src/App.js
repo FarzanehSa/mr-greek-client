@@ -10,6 +10,7 @@ import Home from './components/Home';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Menu from './components/Menu';
+import Contact from './components/Contact';
 import FoodItem from './components/FoodItem';
 import AdminLogin from './components/dashboard/AdminLogin';
 import NavbarAdmin from './components/dashboard/NavbarAdmin';
@@ -97,6 +98,7 @@ function App() {
           <Route path="/*" element={<Home slides={slides}/>} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/menu/:id" element={<FoodItem allFeatures={allFeatures}/>} />
+          <Route path="/contact" element={<Contact storeInfo={storeInfo}/>} />
 
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/dashboard' element={<Dashboard />} />

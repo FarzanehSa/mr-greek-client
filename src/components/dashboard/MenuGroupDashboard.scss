@@ -42,10 +42,10 @@
     }
 
     .btn-save, .btn-cancel {
-      border: 0.2em solid LightSeaGreen;
+      border: 0.2em solid $admin-keys-color;
       border-radius: 10px;
       width: 120px;
-      background-color: LightSeaGreen ;
+      background-color: $admin-keys-color;
       color: white;
       cursor: pointer;
       font-size: 1.1em;
@@ -57,9 +57,9 @@
       &:hover, &:focus {
         outline: none;
         // background-color: #eb6663;
-        border:0.2em solid PaleTurquoise;
+        border:0.2em solid $admin-keys-color-sec;
         border-radius: 10px;
-        color: PaleTurquoise;
+        color: $admin-keys-color-sec;
       }
     }
   }
@@ -67,7 +67,7 @@
   .title-2 {
     font-size: 1.2em;
     font-weight: 600;
-    text-decoration: LightSeaGreen wavy underline;
+    text-decoration: $admin-keys-color wavy underline;
     text-underline-offset: 0.3em;
     margin-bottom: 2em;
   }
@@ -90,7 +90,7 @@
   
       &:hover, &:focus {
         outline: none;
-        color: LightSeaGreen;
+        color: $admin-keys-color;
       }
     }
   }
@@ -132,7 +132,7 @@
 
     &:hover, &:focus {
       outline: none;
-      color: LightSeaGreen;
+      color: $admin-keys-color;
     }
   }
 }

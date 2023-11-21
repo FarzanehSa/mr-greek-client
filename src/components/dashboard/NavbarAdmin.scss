@@ -3,7 +3,8 @@
 .navbar-admin-page {
   // border: $test;
   border-bottom: 1px solid gray;
-  background-color: $nav-color;
+  background-color: $admin-nav-color;
+  color: $admin-nav-text-color;
   position: fixed;
   top: 0;
 
@@ -27,7 +28,7 @@
       .navlink {
         transition: all 0.7s ease-in-out;
         &:focus {
-          outline: 2px solid LightSeaGreen;
+          outline: 2px solid $admin-keys-color;
           box-shadow: none;
         }
       }
@@ -47,13 +48,20 @@
     color: black;
     transition: all 0.7s ease-in-out;
 
+    .navlink {
+      color: $admin-nav-text-color;
+      &:hover {
+        color: $admin-nav-text-color;
+      }
+    }
+
     &:hover {
       cursor: pointer;
       color: black;
-      border-bottom: 3px solid LightSeaGreen;;            
+      border-bottom: 3px solid $admin-keys-color;            
     }
     &:focus {
-      outline: 2px solid LightSeaGreen;;
+      outline: 2px solid $admin-keys-color;
       box-shadow: none;
     }
   }
@@ -76,16 +84,16 @@
         font-size: 1.2rem;
         border: 3px solid transparent;
         background-color: transparent;
-        color: black;
+        color: $admin-nav-text-color;
         transition: all 0.7s ease-in-out;
 
         &:hover {
           cursor: pointer;
-          color: black;
-          border-bottom: 3px solid LightSeaGreen;;            
+          color: $admin-nav-text-color;
+          border-bottom: 3px solid $admin-keys-color;            
         }
         &:focus {
-          outline: 2px solid LightSeaGreen;;
+          outline: 2px solid $admin-keys-color;
           box-shadow: none;
         }
       }

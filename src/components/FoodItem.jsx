@@ -9,10 +9,8 @@ const FoodItem = ({ allFeatures }) => {
   const id = useParams().id.split("_").join(" ");
   const { menuItems } = useContext(GeneralContext);
   const [item, setItem] = useState();
-  const [itemFeatures, setItemFeatures] = [];
 
-  console.log(itemFeatures);
-    console.log(item);
+  console.log(item);
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -20,28 +18,16 @@ const FoodItem = ({ allFeatures }) => {
 
   useEffect(() => {
     setItem(menuItems.filter(e => e.item === id)[0]);
-  }, [menuItems]);
-
-  // useEffect(() => {
-  //   if (item.features) {
-
-  //     const myFeatures = item.features.map(e => {
-  //       return (
-  //         allFeatures.filter(row => row.id === e)
-  //       )
-  //     });
-  //     setItemFeatures(myFeatures);
-  //   }
-  // }, [item]);
+  }, [menuItems]); // eslint-disable-line
 
   return (
-    item &&
     <div className="food-item">
-        <img
-          src="../wave.jpg"
-          alt="wave"
-          className="wave-img"
-        />
+      <img
+        src="../wave.jpg"
+        alt="wave"
+        className="wave-img"
+      />
+      {item ? 
         <div className="item">
           <div className="left-side">
             <img 
@@ -56,7 +42,8 @@ const FoodItem = ({ allFeatures }) => {
               <span className="item-price">${item.price / 100}</span>
             </div>
             <div className="feature-image-part">
-              {item.features.sort().map(e => {
+              { item.features[0] !== null ? 
+              item.features.sort().map(e => {
                 const row = allFeatures.filter(row => row.id === e)[0];
                   return (
                     <img 
@@ -66,13 +53,17 @@ const FoodItem = ({ allFeatures }) => {
                       className="feature-image"
                     />
                   )
-                })
+                }) : <span></span>
               }
             </div>
             <p className="description">{item.description}</p>
             
           </div>
+        </div> :
+        <div className="item-not-exist">
+          <p>This item does not exist!</p>
         </div>
+      }
     </div>
   )
 }
