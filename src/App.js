@@ -35,6 +35,7 @@ function App() {
   console.log("📗", menuGroups);
   console.log("🥙", menuItems);
   console.log("🏪", storeInfo);
+  console.log(url);
 
   const url = API_BASE_URL;
 
