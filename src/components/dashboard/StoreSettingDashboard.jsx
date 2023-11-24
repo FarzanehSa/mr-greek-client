@@ -233,6 +233,26 @@ const MenuItemDashboard = ({storeInfo, setStoreInfo, slides, setSlides}) => {
               />
             </div>
           </div>
+          <div className="description">
+            <span>About: </span>
+            <div className="input-group">
+              <CssTextField
+                // required
+                id="about"
+                name="about"
+                multiline
+                maxRows={10}
+                minRows={4}
+                value={infoForm.about}
+                onChange={handleChangeUpdateInfo}
+                variant="outlined"
+                size="small"
+                // margin="normal"
+                inputProps={{min: 1, style: { textAlign: 'left' }}}
+                className="input-address"
+              />
+            </div>
+          </div>
           <div className='image-select'>
             <label htmlFor="file-upload-image" className="custom-file-upload">
               Choose Logo

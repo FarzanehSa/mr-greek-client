@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+
+import GeneralContext from "../contexts/GeneralContext";
 import "./Home.scss";
 
 import ImageSlider from "./side/ImageSlider";
 
 const Home = ({slides}) => {
 
-
+  const {storeInfo } = useContext(GeneralContext);
   const [imageSlides, setImageSlides] = useState([])
 
   useEffect(() => {
@@ -46,13 +48,9 @@ const Home = ({slides}) => {
         <p className="bio">
           <span className="bio-title">About US</span>
           <span className="bio-text">
-            We opened our doors in 2020 on Commercial Drive in Vancouver. 
-          </span>
-          <span className="bio-text">
-            Our specialty? Mouthwatering donairs that bring a taste of Greece to your plate.
-          </span>
-          <span className="bio-text">
-            Join us for a flavorful experience that's perfect for locals and visitors alike.
+            <pre>
+              {storeInfo.about}
+            </pre>
           </span>
         </p>
       </div>

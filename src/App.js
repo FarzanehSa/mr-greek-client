@@ -29,7 +29,7 @@ function App() {
   const [menuItems, setMenuItems] = useState([]);
   const [allFeatures, setAllFeatures] = useState([]);
 
-  const [storeInfo, setStoreInfo] = useState({storename:"", logo:"", address:"", tel:""});
+  const [storeInfo, setStoreInfo] = useState({storename:"", logo:"", address:"", tel:"", about:""});
   const [slides, setSlides] = useState([]);
 
   // console.log("📗", menuGroups);
@@ -52,9 +52,6 @@ function App() {
     const f2 = axios.get(`${url}/api/menu-items`);
     const f3 = axios.get(`${url}/api/features`);
     const f4 = axios.get(`${url}/api/store-settings`);
-
-    // const f3 = axios.get(`${url}/api/spec/storeinfo`);
-
 
     Promise.all([f1, f2, f3, f4])
       .then(([r1, r2, r3, r4]) => {
