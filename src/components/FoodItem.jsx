@@ -9,9 +9,7 @@ const FoodItem = ({ allFeatures }) => {
   const id = useParams().id.split("_").join(" ");
   const { menuItems } = useContext(GeneralContext);
   const [item, setItem] = useState();
-
-  console.log(item);
-
+  
   useEffect(() => {
     window.scrollTo(0, 0)
   }, []);

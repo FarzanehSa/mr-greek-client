@@ -32,17 +32,16 @@ function App() {
   const [storeInfo, setStoreInfo] = useState({storename:"", logo:"", address:"", tel:""});
   const [slides, setSlides] = useState([]);
 
-  console.log("📗", menuGroups);
-  console.log("🥙", menuItems);
-  console.log("🏪", storeInfo);
+  // console.log("📗", menuGroups);
+  // console.log("🥙", menuItems);
+  // console.log("🏪", storeInfo);
   
   const url = API_BASE_URL;
-  console.log(url);
 
   const matchDashboard = useMatch('/dashboard/*');
 
   useEffect(() => {
-    console.log('Mr.Greek Donair, 💫 v.01 ');
+    console.log('Mr.Greek Donair, 💫 v.02 ');
 
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {

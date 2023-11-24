@@ -1,7 +1,8 @@
 @import "../styles/variables.scss";
 
 .n-wrapper {
-  width: 100%;
+  // border: $test;
+  width: 95%;
   height: 14vh;
   background-color: $client-nav-color;
   display: flex;
@@ -130,12 +131,12 @@
 }
 
 
-@media screen and (min-width: 1400px) {
-  .n-wrapper {
-    max-width: 1400px;
-    margin: auto;
-  }
-}
+// @media screen and (min-width: 1500px) {
+//   .n-wrapper {
+//     max-width: 1400px;
+//     margin: auto;
+//   }
+// }
 
 @media screen and (max-width: 900px) {
   .n-wrapper {
