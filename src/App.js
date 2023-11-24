@@ -73,7 +73,7 @@ function App() {
   useEffect(() => {
     localStorage.setItem('user', JSON.stringify(user));
     if (matchDashboard) {
-      setTitle("Online Booking Dashboard");
+      setTitle(`${storeInfo.storename} Dashboard`);
       if (!user.id || user.access !== 0) {
         setAdminLogin(true);
       } 
@@ -81,7 +81,7 @@ function App() {
         setAdminLogin(false);
       }
     } else {
-      setTitle("Online Booking");
+      setTitle(`${storeInfo.storename}`);
       setAdminLogin(false);
     }
   }, [user, matchDashboard]);
