@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import "./Contact.scss";
 
@@ -9,6 +9,10 @@ const Contact = ({storeInfo}) => {
     user_email: "",
     message:"",
   });
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, []);
 
   const handleChange = (e) => {
     const name = e.target.name;
