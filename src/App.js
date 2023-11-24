@@ -84,7 +84,7 @@ function App() {
       setTitle(`${storeInfo.storename}`);
       setAdminLogin(false);
     }
-  }, [user, matchDashboard]);
+  }, [user, matchDashboard, storeInfo.storename]);
 
   function closeModal() {
     setAdminLogin(false);
