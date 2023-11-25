@@ -23,108 +23,44 @@
     margin-top: 2rem;
   }
 
-  .item {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 80%;
-    margin-top: 2rem;
-    height: 100%;
+  .top-item-page {
 
-    .left-side {  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    // height: 100%;
+
+    .item {
       display: flex;
       justify-content: flex-start;
       align-items: flex-start;
-      width: 50%;
-      height: 100%;
+      width: 80%;
+      margin-top: 2rem;
+      margin-bottom: 4rem;
 
-      .item-img {
-        width: 100% ;
-        // height: 30vW;
-        border-radius: 10px;
-      }
-    }
-
-    .right-side {
-      // border: 1px solid red;
-      width: 50%;
-      height: 55vh;
-      padding: 0 0 0 2rem;
-
-      .name-price {
+      // height: 100%;
+  
+      .left-side {  
         display: flex;
-        flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
-
-        .title {
-          font-size: 1.5rem;
-          font-weight: 600;
-          margin-bottom: 1rem;
-        }
-        .item-price {
-          font-size: 1.2rem;
-          font-weight: 600;
-          margin-bottom: 1rem;
-          padding-left: 1rem;
-        }
-      }
-
-      .feature-image-part {
-        .feature-image {
-          border: 1px solid black;
-          height: 35px;
-          width: 35px;
-          object-fit:contain;
-          margin: 0.2rem;
-          padding: 0.2rem;
-          border-radius: 100%;
-        }
-      }
-
-      .description {
-        padding-top: 2rem;
-        font-size: 1.1rem;
-        text-align: justify;
-      }
-    }
-  }
-}
-
-@media only screen and (max-width: 755px) {
-  .food-item {
-    margin-top: 6rem;
-    
-    .wave-img {
-      height: 150px;
-      width: 90%;
-    }
-  
-    .item {
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      width: 90%;
-      margin-top: 2rem;
-  
-      .left-side {
-        // border: 1px solid red;
-        width: 80%;
-        height: auto;
-        margin-bottom: 2rem;
+        width: 50%;
+        // height: 100%;
   
         .item-img {
           width: 100% ;
-          height: 30vW;
+          // height: 30vW;
           border-radius: 10px;
         }
       }
   
       .right-side {
         // border: 1px solid red;
-        width: 80%;
-        height: auto;
-        padding: 0 1rem 0 1rem;
+        width: 50%;
+        // height: 55vh;
+        padding: 0 0 0 2rem;
   
         .name-price {
           display: flex;
@@ -140,14 +76,179 @@
           .item-price {
             font-size: 1.2rem;
             font-weight: 600;
-            margin-bottom: 0rem;
+            margin-bottom: 1rem;
             padding-left: 1rem;
           }
         }
   
+        .feature-image-part {
+          .feature-image {
+            border: 1px solid black;
+            height: 35px;
+            width: 35px;
+            object-fit:contain;
+            margin: 0.2rem;
+            padding: 0.2rem;
+            border-radius: 100%;
+          }
+        }
+  
         .description {
-          padding-top: 1rem;
+          padding-top: 2rem;
           font-size: 1.1rem;
+          text-align: justify;
+        }
+      }
+    }
+
+    .other-items {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      width: 80%;
+
+      .title {
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+
+      .show-others-part {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 100%;
+        margin: 0.5rem;
+
+        .item-box {
+          border: 3px solid grey;
+          border-radius: 10px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          width: 270px;
+          margin: 1rem;
+          padding-right: 0.5rem;
+          padding-left: 0.5rem;
+          text-align: center;
+    
+          .food-img {
+            // border: 2px solid grey;
+            border-radius: 7px 7px 0 0;
+            // padding-top: 1px;
+            height: 200px;
+            width: 264px;
+          }
+    
+          .item-name {
+            height: 64px;
+            font-size: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          }
+    
+          &:hover{
+            border: 3px solid $client-keys-color;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 755px) {
+  .food-item {
+    margin-top: 6rem;
+    
+    .wave-img {
+      height: 150px;
+      width: 90%;
+    }
+
+    .top-item-page {
+      .item {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        width: 90%;
+        margin-top: 2rem;
+    
+        .left-side {
+          // border: 1px solid red;
+          width: 80%;
+          height: auto;
+          margin-bottom: 2rem;
+    
+          .item-img {
+            width: 100% ;
+            height: 30vW;
+            border-radius: 10px;
+          }
+        }
+    
+        .right-side {
+          // border: 1px solid red;
+          width: 80%;
+          height: auto;
+          padding: 0 1rem 0 1rem;
+    
+          .name-price {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+    
+            .title {
+              font-size: 1.5rem;
+              font-weight: 600;
+              margin-bottom: 1rem;
+            }
+            .item-price {
+              font-size: 1.2rem;
+              font-weight: 600;
+              margin-bottom: 0rem;
+              padding-left: 1rem;
+            }
+          }
+    
+          .description {
+            padding-top: 1rem;
+            font-size: 1.1rem;
+          }
+        }
+      }
+
+      .other-items {
+        width: 85%;
+  
+        .title {
+          font-size: 1.4rem;
+        }
+  
+        .show-others-part {
+          .item-box {
+            width: 200px;
+            margin: 1rem;
+            padding-right: 0.5rem;
+            padding-left: 0.5rem;
+            text-align: center;
+      
+            .food-img {
+              // border: 2px solid grey;
+              border-radius: 7px 7px 0 0;
+              // padding-top: 1px;
+              height: 150px;
+              width: 194px;
+            }
+
+            .item-name {
+              height: 50px;
+            }
+          }
         }
       }
     }
@@ -162,54 +263,95 @@
       height: 150px;
       width: 90%;
     }
-  
-    .item {
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      width: 90%;
-      margin-top: 0.5rem;
-  
-      .left-side {
-        width: 85%;
-        height: auto;
-        margin-bottom: 2rem;
-  
-        .item-img {
-          width: 100% ;
-          height: 30vW;
-          border-radius: 10px;
+
+    .top-item-page {
+      .item {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        width: 90%;
+        margin-top: 0.5rem;
+    
+        .left-side {
+          width: 85%;
+          height: auto;
+          margin-bottom: 2rem;
+    
+          .item-img {
+            width: 100% ;
+            height: 30vW;
+            border-radius: 10px;
+          }
+        }
+    
+        .right-side {
+          // border: 1px solid red;
+          width: 85%;
+          height: auto;
+          padding: 0 0.5rem 0 0.5rem;
+    
+          .name-price {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+    
+            .title {
+              font-size: 1.3rem;
+              font-weight: 600;
+              margin-bottom: 0.7rem;
+            }
+            .item-price {
+              font-size: 1.05rem;
+              font-weight: 600;
+              margin-bottom: 0rem;
+              padding-left: 0.7rem;
+            }
+          }
+    
+          .description {
+            padding-top: 0.7rem;
+            font-size: 1rem;
+          }
         }
       }
+
+      .other-items {
+        width: 90%;
   
-      .right-side {
-        // border: 1px solid red;
-        width: 85%;
-        height: auto;
-        padding: 0 0.5rem 0 0.5rem;
-  
-        .name-price {
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-start;
-          align-items: flex-start;
-  
-          .title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 0.7rem;
-          }
-          .item-price {
-            font-size: 1.05rem;
-            font-weight: 600;
-            margin-bottom: 0rem;
-            padding-left: 0.7rem;
-          }
+        .title {
+          font-size: 1.3rem;
         }
   
-        .description {
-          padding-top: 0.7rem;
-          font-size: 1rem;
+        .show-others-part {
+          .item-box {
+            width: 270px;
+            margin: 1rem;
+            padding-right: 0.5rem;
+            padding-left: 0.5rem;
+            text-align: center;
+      
+            .food-img {
+              // border: 2px solid grey;
+              border-radius: 7px 7px 0 0;
+              // padding-top: 1px;
+              height: 200px;
+              width: 264px;
+            }
+      
+            .item-name {
+              height: 64px;
+              font-size: 1.2rem;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+            }
+      
+            &:hover{
+              border: 3px solid $client-keys-color;
+            }
+          }
         }
       }
     }
