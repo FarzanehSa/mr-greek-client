@@ -1,4 +1,4 @@
-import {React, useContext, useState} from 'react';
+import {React, useContext, useState, useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
 
 import GeneralContext from "../contexts/GeneralContext";
@@ -8,6 +8,10 @@ const Menu = () => {
 
   const { menuGroups, menuItems } = useContext(GeneralContext);
   const [selectedGroup, setSelectedGroup] = useState(-1);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const menuDivs = menuGroups.map((e, i) => {
     return (
