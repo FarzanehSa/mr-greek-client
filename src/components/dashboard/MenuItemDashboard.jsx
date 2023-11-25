@@ -569,8 +569,8 @@ const MenuItemDashboard = ({setMenuItems, allFeatures}) => {
               </div>  
               <div className="group">
                 <div className="input-group">
-                  <span className="name-field">Group: </span>    
-                  <CssTextField
+                  <span className="name-field">Group: </span> 
+                  <CssSelect
                     required
                     id="groupId"
                     name="groupId"
@@ -581,8 +581,8 @@ const MenuItemDashboard = ({setMenuItems, allFeatures}) => {
                     className="select-group"
                     MenuProps={MenuProps}
                   >
-                    {groupsArr}
-                  </CssTextField>
+                  {groupsArr}
+                  </CssSelect>
                 </div>
               </div>
               <div className='image-select'>
