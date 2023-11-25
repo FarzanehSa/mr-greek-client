@@ -45,14 +45,12 @@ const Home = ({slides}) => {
             Order Online
           </span>
         </div>
-        <p className="bio">
+        <div className="bio">
           <span className="bio-title">About US</span>
-          <span className="bio-text">
-            <pre>
-              {storeInfo.about}
-            </pre>
-          </span>
-        </p>
+          <pre className="bio-text" text-wrap="wrap">
+            {storeInfo.about}
+          </pre>
+        </div>
       </div>
     </div>
   );

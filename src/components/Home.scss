@@ -1,7 +1,6 @@
 @import "src/styles/variables.scss";
 
 .homepage-layout {
-//   // border: $test;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -38,6 +37,7 @@
       flex-direction: column;
       align-content: center;
       align-items: flex-start;
+      width: 100%;
       font-size: 1rem;
       margin-bottom: 8rem;
 
@@ -49,6 +49,11 @@
       }
       .bio-text {
         margin: 0.3rem 0rem;
+        max-Width: 100%;
+        text-wrap: wrap;
+        text-align: justify;
+        text-indent: 1rem;
+        line-height:1.7rem;
       }
     }
 
@@ -83,5 +88,61 @@
       }
     }
   }
+}
 
+@media only screen and (max-width: 800px) {
+  .homepage-layout {
+    width: 100vw;
+    margin-top: 7rem;
+    
+    .text-under-image {
+        width: 90%;
+        margin: auto;
+        padding-top: 10px;
+    
+        .star-ad {
+          font-size: 1.3rem;
+          border: 4px solid $client-keys-color;
+          padding: 1.5rem;
+          margin: 1rem 0;
+        }
+    
+        .bio {
+          width: 100%;
+          font-size: 1rem;
+          margin-bottom: 6rem;
+    
+          .bio-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+          }
+
+          .bio-text {
+            margin: 0.3rem 0rem;
+            max-Width: 100%;
+            text-indent: 1rem;
+            line-height:1.7rem;
+          }
+        }
+    
+        .delivery {
+          margin: 3rem 0;
+    
+          .delivery-imgs {
+            width: 90%;
+    
+            .delivery-img {
+              height: 80px;
+              width: 80px;
+              margin: 1rem;
+            }
+          }
+          .delivery-txt {
+            font-size: 2.5rem;
+            line-height: 4rem;
+            letter-spacing: 0.2rem;
+          }
+        }
+      }
+    }
 }
