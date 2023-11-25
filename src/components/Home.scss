@@ -50,7 +50,7 @@
       .bio-text {
         margin: 0.3rem 0rem;
         max-Width: 100%;
-        text-wrap: wrap;
+        white-space: pre-wrap;
         text-align: justify;
         text-indent: 1rem;
         line-height:1.7rem;
